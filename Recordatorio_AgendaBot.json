@@ -1,0 +1,245 @@
+{
+  "name": "Recordatorio_AgendaBot",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * *"
+            }
+          ]
+        }
+      },
+      "id": "d2c43b1b-6579-4d28-9fa9-15b1e009b74c",
+      "name": "Cada dia 8:00 AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -224,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1ZBBzCiGk-GMBf9eKGtDiDrYhdqvqk6HcrN6Vd9nU1ts",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "CITAS",
+          "mode": "name"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "fecha",
+              "lookupValue": "={{ $today.format('yyyy-MM-dd') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4a1d326d-5ff2-4f85-927e-a3342dca1796",
+      "name": "Get Citas Hoy",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        0,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "q55ovL8OQQ9SYCyF",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1ZBBzCiGk-GMBf9eKGtDiDrYhdqvqk6HcrN6Vd9nU1ts",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "TAREAS",
+          "mode": "name"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "fecha_objetivo",
+              "lookupValue": "={{ $today.format('yyyy-MM-dd') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6d3b0925-ec8b-4dc1-a1df-f020e8a04930",
+      "name": "Get Tareas Hoy",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        224,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "q55ovL8OQQ9SYCyF",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1ZBBzCiGk-GMBf9eKGtDiDrYhdqvqk6HcrN6Vd9nU1ts",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "USUARIOS",
+          "mode": "name"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "permitido",
+              "lookupValue": "TRUE"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c2ac93a4-5ff7-4cea-ba1b-68a3f7b421a2",
+      "name": "Get Usuarios Activos",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        448,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "q55ovL8OQQ9SYCyF",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * AGENDABOT — RESUMEN DIARIO (FASE 7)\n * Nodo: Code — Modo: \"Run Once for All Items\"\n * Se ejecuta después de dos nodos Google Sheets:\n *   \"Get Citas Hoy\"  (CITAS filtrado por fecha = hoy)\n *   \"Get Tareas Hoy\" (TAREAS filtrado por fecha_objetivo = hoy)\n * y antes de \"Get Usuarios Activos\" (USUARIOS filtrado por permitido = TRUE),\n * que se usa para saber a quién enviarle el resumen.\n *\n * Salida: un item POR CADA usuario a notificar, con chat_id y el texto armado,\n * listo para conectarse directo a un nodo Telegram \"Send Message\" con\n * Chat ID = {{$json.chat_id}}.\n */\n\nfunction hoyISO() {\n  return new Date().toISOString().slice(0, 10);\n}\n\nconst citasHoy = $('Get Citas Hoy').all();\nconst tareasHoy = $('Get Tareas Hoy').all();\nconst usuarios = $('Get Usuarios Activos').all();\n\nlet cuerpo = `☀️ *Resumen del día — ${hoyISO()}*\\n\\n`;\n\nif (citasHoy.length === 0) {\n  cuerpo += '📅 No tienes citas hoy.\\n\\n';\n} else {\n  cuerpo += '📅 *Citas de hoy:*\\n';\n  cuerpo += citasHoy\n    .sort((a, b) => String(a.json.hora).localeCompare(String(b.json.hora)))\n    .map(c => `• ${c.json.hora} — ${c.json.nombre} (${c.json.motivo})`)\n    .join('\\n');\n  cuerpo += '\\n\\n';\n}\n\nif (tareasHoy.length === 0) {\n  cuerpo += '✅ No tienes tareas con fecha objetivo hoy.';\n} else {\n  cuerpo += '✅ *Tareas con vencimiento hoy:*\\n';\n  cuerpo += tareasHoy\n    .filter(t => String(t.json.estado).toUpperCase() !== 'COMPLETADA')\n    .map(t => `• [${t.json.prioridad}] ${t.json.titulo}`)\n    .join('\\n');\n}\n\n// Un item por usuario activo, para que el nodo Telegram \"Send Message\" itere\n// automáticamente y le envíe el resumen a cada uno.\nreturn usuarios.map(u => ({\n  json: {\n    chat_id: u.json.telegram_user,\n    resumen_texto: cuerpo,\n  },\n}));\n"
+      },
+      "id": "1fa487d6-03b5-498b-bf29-c93ca09d3208",
+      "name": "Construir Resumen",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chat_id }}",
+        "text": "={{ $json.resumen_texto }}",
+        "additionalFields": {
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "03b2dc03-dfeb-44b3-afaa-96a329ff328c",
+      "name": "Enviar Resumen",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        880,
+        0
+      ],
+      "webhookId": "7b79942f-822b-471f-8272-362eb57544ea",
+      "credentials": {
+        "telegramApi": {
+          "id": "59AcNn2eg6YLQ9Xk",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Cada dia 8:00 AM": {
+      "main": [
+        [
+          {
+            "node": "Get Citas Hoy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Citas Hoy": {
+      "main": [
+        [
+          {
+            "node": "Get Tareas Hoy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Tareas Hoy": {
+      "main": [
+        [
+          {
+            "node": "Get Usuarios Activos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Usuarios Activos": {
+      "main": [
+        [
+          {
+            "node": "Construir Resumen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Construir Resumen": {
+      "main": [
+        [
+          {
+            "node": "Enviar Resumen",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "288844c6-c501-4555-a786-0b4509201909",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "cf8f2bd435bb1d4e2eee8626819a3bd33cea52774cd2d01256ad7cd690dc5477"
+  },
+  "nodeGroups": [],
+  "id": "A0Hh5Ji0a2LWUkOA",
+  "tags": []
+}
