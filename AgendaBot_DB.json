@@ -8,13 +8,13 @@
         ],
         "additionalFields": {}
       },
-      "id": "57c3920c-8c67-4f62-956d-b0bc789c8807",
+      "id": "44a7f4d1-8376-4ed1-9185-56e4738c44ce",
       "name": "Telegram Trigger",
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1.1,
       "position": [
-        -2608,
-        2080
+        -1856,
+        2176
       ],
       "webhookId": "agendabot-webhook",
       "credentials": {
@@ -29,13 +29,13 @@
         "mode": "runOnceForEachItem",
         "jsCode": "const msg = $json.message;\n\nif (!msg || !msg.from) {\n  // Ignora updates sin remitente (ediciones, canal, etc.)\n  return [];\n}\n\nreturn {\n  json: {\n    telegram_user: String(msg.from.id),\n    user_name: msg.from.first_name || 'Usuario',\n    input_text: msg.text ? msg.text.trim() : '',\n    chat_id: msg.chat.id,\n    timestamp: new Date().toISOString()\n  }\n};\n"
       },
-      "id": "bcfaacab-bfff-4075-9177-6e4eb1528cbc",
+      "id": "5f6f636b-92c1-44d2-8804-a633a54e4f06",
       "name": "Normalizar Input",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2448,
-        2080
+        -1680,
+        2176
       ]
     },
     {
@@ -60,14 +60,14 @@
         },
         "options": {}
       },
-      "id": "8eed704f-a764-42d7-a929-1a6e0fe87b4c",
+      "id": "81064ca1-1b49-4021-8eae-24fdcb26e266",
       "name": "Get Session",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "alwaysOutputData": true,
       "position": [
-        -2272,
-        2080
+        -1472,
+        2176
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -98,14 +98,14 @@
         },
         "options": {}
       },
-      "id": "db8ce538-5b8f-47fe-9213-56b5798a6a7f",
+      "id": "a6aa4ecb-4e8e-4116-a154-57f8829e491a",
       "name": "Get Usuario",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "alwaysOutputData": true,
       "position": [
-        -2096,
-        2080
+        -1296,
+        2176
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -128,14 +128,14 @@
         },
         "options": {}
       },
-      "id": "5df6076a-45c1-4464-be43-acebd6f2ee35",
+      "id": "c4de3b1a-b5d6-45d3-912c-cbd7181fa04f",
       "name": "Get Citas Activas",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "alwaysOutputData": true,
       "position": [
-        -1888,
-        2080
+        -1104,
+        2176
       ],
       "notesInFlow": true,
       "credentials": {
@@ -160,14 +160,14 @@
         },
         "options": {}
       },
-      "id": "59a6bb4e-2493-4b11-9254-0c3830b0e350",
+      "id": "bb4d8b1d-1a95-4f59-840e-3cf873b85294",
       "name": "Get Tareas Activas",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "alwaysOutputData": true,
       "position": [
-        -1696,
-        2080
+        -928,
+        2176
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -190,14 +190,14 @@
         },
         "options": {}
       },
-      "id": "d6c277de-c637-49a4-8afc-c33b17230e0d",
+      "id": "1110476c-c16b-4427-b37c-b099cf6a6075",
       "name": "Get Habitos",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "alwaysOutputData": true,
       "position": [
-        -1488,
-        2080
+        -736,
+        2176
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -220,14 +220,74 @@
         },
         "options": {}
       },
-      "id": "7a8507fd-dfc1-419a-8eac-d08fcc2e9d5f",
+      "id": "bf673383-12da-439e-8e60-e22675ff9b32",
       "name": "Get Listas",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "alwaysOutputData": true,
       "position": [
-        -1296,
-        2080
+        -560,
+        2176
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "q55ovL8OQQ9SYCyF",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1ZBBzCiGk-GMBf9eKGtDiDrYhdqvqk6HcrN6Vd9nU1ts",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "LOGS",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "9215bbd7-4ec2-4bfd-9ac6-3177657b5bef",
+      "name": "Get Logs",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "alwaysOutputData": true,
+      "position": [
+        -400,
+        2176
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "q55ovL8OQQ9SYCyF",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1ZBBzCiGk-GMBf9eKGtDiDrYhdqvqk6HcrN6Vd9nU1ts",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "USUARIOS",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "id": "efa08dc8-2fa0-4329-adb0-c8e7646ff593",
+      "name": "Get Todos Usuarios",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "alwaysOutputData": true,
+      "position": [
+        -240,
+        2176
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -240,27 +300,27 @@
       "parameters": {
         "jsCode": "const original = $('Normalizar Input').all();\nif (!original || original.length === 0) {\n  return [];\n}\nreturn [{ json: original[0].json }];\n"
       },
-      "id": "0324aa4b-a935-4a49-af91-2936996e4221",
+      "id": "405ae82b-5982-436b-a37e-d3580112706f",
       "name": "Preparar Contexto",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1104,
-        2080
+        -64,
+        2176
       ]
     },
     {
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "/**\n * ============================================================\n *  AGENDABOT SERVICES — MOTOR DE MÁQUINA DE ESTADOS (\"BRAIN\")\n *  v2 — Comunicación Humanizada (Artículos 6 a 10)\n * ============================================================\n * Nodo: Code (JavaScript) — Modo: \"Run Once for Each Item\"\n *\n * ENTRADAS (pipeline lineal de n8n):\n *   $json                         -> salida de \"Normalizar Input\"\n *   $('Get Session').all()        -> SESSIONS para este telegram_user\n *   $('Get Usuario').all()        -> USUARIOS para este telegram_user\n *   $('Get Citas Activas').all()  -> CITAS con fecha >= hoy\n *\n * SALIDA: igual contrato que v1 (reply_text, session, write, log).\n *\n * REGLA DE COMUNICACIÓN HUMANIZADA (aplica a TODO mensaje del bot):\n *   1. Saludar / dar contexto cercano\n *   2. Explicar brevemente qué se puede hacer ahí\n *   3. Mostrar opciones numeradas\n *   4. Sugerir una opción\n *   5. Indicar cómo continuar o salir (9 = volver)\n * ============================================================\n */\n\n// ---------- 0. UTILIDADES ----------\n\nfunction hoyISO() {\n  return new Date().toISOString().slice(0, 10);\n}\nfunction nowISO() {\n  return new Date().toISOString();\n}\nfunction validarFecha(str) {\n  if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(str)) return false;\n  const d = new Date(str + 'T00:00:00');\n  if (isNaN(d.getTime())) return false;\n  const hoy = new Date(hoyISO() + 'T00:00:00');\n  return d.getTime() >= hoy.getTime();\n}\nfunction validarHora(str) {\n  return /^([01]\\d|2[0-3]):[0-5]\\d$/.test(str);\n}\nfunction generarId(prefijo, filasExistentes, campoId) {\n  let max = 0;\n  for (const fila of filasExistentes) {\n    const val = String(fila.json[campoId] || '');\n    const m = val.match(/-(\\d+)$/);\n    if (m) {\n      const n = parseInt(m[1], 10);\n      if (n > max) max = n;\n    }\n  }\n  return `${prefijo}-${String(max + 1).padStart(3, '0')}`;\n}\nfunction parseDatosParciales(str) {\n  try {\n    return str ? JSON.parse(str) : {};\n  } catch (e) {\n    return {};\n  }\n}\n\n// ---------- 1. MENÚ PRINCIPAL Y TEXTOS BASE (Artículos 6, 7, 8) ----------\n\nfunction textoMenuPrincipal() {\n  return (\n    `0. Ayuda\\n` +\n    `1. Agenda (citas)\\n` +\n    `2. Tareas\\n` +\n    `3. Recordatorios\\n` +\n    `4. Hábitos\\n` +\n    `5. Listas\\n` +\n    `6. Reportes\\n` +\n    `7. Configuración\\n` +\n    `8. Administrador`\n  );\n}\n\n// Artículo 6 — se muestra solo la primera vez (sesión nueva)\nfunction bienvenida() {\n  return (\n    `Hola, soy AgendaBot 👋\\n\\n` +\n    `Estoy aquí para ayudarte a organizar tus citas, tareas y recordatorios ` +\n    `de forma sencilla y sin complicaciones.\\n\\n` +\n    `Puedes escribirme en cualquier momento.\\n` +\n    `Para avanzar, solo tienes que escribir el número de la opción que quieras usar.\\n\\n` +\n    `Menú principal:\\n${textoMenuPrincipal()}\\n\\n` +\n    `Tip rápido: escribe solo el número (por ejemplo: 1) y presiona enviar.`\n  );\n}\n\n// Artículo 8 — se muestra cada vez que se vuelve al menú principal\nfunction menuPrincipal() {\n  return (\n    `¿En qué te puedo ayudar hoy?\\n\\n` +\n    `Menú principal:\\n${textoMenuPrincipal()}\\n\\n` +\n    `Si quieres empezar rápido, te recomiendo la opción 1 (Agenda).`\n  );\n}\n\n// Artículo 7 — mensaje global de opción inválida (dinámico)\nconst PANTALLAS_INFO = {\n  MAIN_MENU:          { label: 'Menú principal',       rango: '0 al 8' },\n  MENU_AGENDA:        { label: 'Menú de Agenda',        rango: '1 al 5, o 9 para volver' },\n  MENU_TAREAS:        { label: 'Menú de Tareas',        rango: '1 al 3, o 9 para volver' },\n  MENU_RECORDATORIOS: { label: 'Menú de Recordatorios', rango: '1 al 2, o 9 para volver' },\n  MENU_HABITOS:       { label: 'Menú de Hábitos',       rango: '1 al 3, o 9 para volver' },\n  MENU_LISTAS:        { label: 'Menú de Listas',        rango: '1 al 4, o 9 para volver' },\n  MENU_REPORTES:      { label: 'Menú de Reportes',      rango: '1 al 2, o 9 para volver' },\n  MENU_CONFIGURACION: { label: 'Configuración',         rango: '1 al 2, o 9 para volver' },\n  MENU_ADMIN:         { label: 'Administrador',         rango: '1 al 2, o 9 para volver' },\n};\n\nfunction mensajeOpcionInvalida(pantalla) {\n  const info = PANTALLAS_INFO[pantalla] || { label: pantalla, rango: 'revisa las opciones en pantalla' };\n  return (\n    `Ups, esa opción no existe en este menú.\\n\\n` +\n    `Por favor escribe uno de los números que ves en pantalla.\\n\\n` +\n    `Estás en: ${info.label}\\n` +\n    `Opciones disponibles: ${info.rango}`\n  );\n}\n\n// ---------- 2. MENÚS DE SEGUNDO NIVEL ----------\n\nfunction menuAgenda() {\n  return (\n    `Perfecto, vamos con tu agenda.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Agendar una nueva cita\\n` +\n    `2. Consultar tu agenda\\n` +\n    `3. Reprogramar una cita\\n` +\n    `4. Cancelar una cita\\n` +\n    `5. Marcar una cita como completada\\n` +\n    `9. Volver al menú principal`\n  );\n}\n\nfunction menuTareas() {\n  return (\n    `Vamos con tus tareas — aquí puedes crearlas, revisarlas o completarlas.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Crear una tarea\\n` +\n    `2. Consultar tareas pendientes\\n` +\n    `3. Marcar una tarea como completada\\n` +\n    `9. Volver al menú principal\\n\\n` +\n    `💡 Si es tu primera vez aquí, te recomiendo la opción 1.`\n  );\n}\n\nfunction menuRecordatorios() {\n  return (\n    `Vamos con tus recordatorios — para que no se te pase nada importante.\\n\\n` +\n    `Tus recordatorios se basan en los hábitos que tengan una hora configurada.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Ver mis recordatorios\\n` +\n    `2. Ir a Hábitos para crear o editar uno\\n` +\n    `9. Volver al menú principal`\n  );\n}\n\nfunction menuHabitos() {\n  return (\n    `Vamos con tus hábitos — para ayudarte a seguirles la pista.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Crear un hábito\\n` +\n    `2. Consultar mis hábitos\\n` +\n    `3. Marcar cumplido hoy\\n` +\n    `9. Volver al menú principal\\n\\n` +\n    `💡 Si es tu primer hábito, te recomiendo la opción 1.`\n  );\n}\n\nfunction menuListas() {\n  return (\n    `Vamos con tus listas — de compras, pendientes o lo que necesites.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Crear una lista\\n` +\n    `2. Consultar mis listas\\n` +\n    `3. Agregar un item a una lista\\n` +\n    `4. Marcar un item como completado\\n` +\n    `9. Volver al menú principal\\n\\n` +\n    `💡 Si es tu primera lista, te recomiendo la opción 1.`\n  );\n}\n\nfunction menuReportes(citasActivas, tareasActivas, habitos, listas) {\n  const confirmadas = citasActivas.filter(c => String(c.json.estado).toUpperCase() === 'CONFIRMADA').length;\n  const canceladas = citasActivas.filter(c => String(c.json.estado).toUpperCase() === 'CANCELADA').length;\n  const tareasPendientes = tareasActivas.filter(t => String(t.json.estado).toUpperCase() !== 'COMPLETADA').length;\n  const habitosActivos = habitos.filter(h => String(h.json.estado || '').toUpperCase() !== 'INACTIVO').length;\n  return (\n    `Aquí tienes un vistazo rápido a tu actividad.\\n\\n` +\n    `📊 Citas activas confirmadas: ${confirmadas}\\n` +\n    `📊 Citas canceladas (histórico visible): ${canceladas}\\n` +\n    `📊 Tareas pendientes: ${tareasPendientes}\\n` +\n    `📊 Hábitos activos: ${habitosActivos}\\n` +\n    `📊 Listas creadas: ${listas.length}\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Ver este resumen de nuevo\\n` +\n    `2. Ver citas de hoy\\n` +\n    `9. Volver al menú principal`\n  );\n}\n\nfunction menuConfiguracion() {\n  return (\n    `Aquí puedes ajustar algunas preferencias del bot.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Ver mis datos registrados\\n` +\n    `2. Cambiar mi nombre visible\\n` +\n    `9. Volver al menú principal\\n\\n` +\n    `⚠️ Este menú es un placeholder: aún no definimos qué preferencias son ` +\n    `relevantes para el equipo. Lo afinamos en la charla final.`\n  );\n}\n\nfunction menuAdmin() {\n  return (\n    `Panel de administrador — solo visible para roles ADMIN.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Ver últimos logs\\n` +\n    `2. Ver usuarios registrados\\n` +\n    `9. Volver al menú principal`\n  );\n}\n\nfunction menuAyuda() {\n  return (\n    `Con gusto te oriento 🙂\\n\\n` +\n    `AgendaBot funciona con menús numerados: escribe el número de la opción ` +\n    `que quieras y presiona enviar.\\n\\n` +\n    `Desde cualquier submenú o asistente paso a paso, escribe 9 para volver ` +\n    `al menú anterior en cualquier momento.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Ver el menú principal de nuevo\\n` +\n    `9. Volver al menú principal\\n\\n` +\n    `💡 Si tienes dudas sobre una opción específica, entra a ese menú: ` +\n    `siempre te va a explicar brevemente qué puedes hacer ahí.`\n  );\n}\n\n// ---------- 3. NODO PRINCIPAL DE EJECUCIÓN ----------\n\nconst input = $json;\nconst telegramUser = input.telegram_user;\nconst chatId = input.chat_id;\nconst texto = (input.input_text || '').trim();\nconst nombre = input.user_name || 'Usuario';\n\nconst sesionRows = $('Get Session').all().filter(r => String(r.json.telegram_user) === String(telegramUser));\nconst usuarioRows = $('Get Usuario').all().filter(r => String(r.json.telegram_user) === String(telegramUser));\nconst citasActivas = $('Get Citas Activas').all();\nconst tareasActivas = $('Get Tareas Activas').all();\nconst habitosTodos = $('Get Habitos').all();\nconst listasTodas = $('Get Listas').all();\n\nconst esUsuarioNuevo = usuarioRows.length === 0;\nconst usuario = esUsuarioNuevo\n  ? { telegram_user: telegramUser, nombre, rol: 'USER', permitido: 'TRUE' }\n  : usuarioRows[0].json;\n\nconst esAdmin = String(usuario.rol).toUpperCase() === 'ADMIN' &&\n                 String(usuario.permitido).toUpperCase() === 'TRUE';\n\nconst esSesionNueva = sesionRows.length === 0;\nlet sesion = esSesionNueva\n  ? { telegram_user: telegramUser, pantalla_actual: 'MAIN_MENU', paso_actual: 0, datos_parciales: '{}' }\n  : sesionRows[0].json;\n\nlet pantalla = sesion.pantalla_actual || 'MAIN_MENU';\nlet paso = Number(sesion.paso_actual || 0);\nlet datos = parseDatosParciales(sesion.datos_parciales);\n\nconst write = {\n  citas:  { do: false, row: null },\n  tareas: { do: false, row: null },\n  habitos:{ do: false, row: null },\n  listas: { do: false, row: null },\n  items:  { do: false, row: null },\n  usuarios_nuevo: { do: esUsuarioNuevo, row: esUsuarioNuevo ? usuario : null },\n};\n\nlet reply = '';\nlet resultadoLog = 'OK';\n\nfunction volverAMenuPrincipal() {\n  pantalla = 'MAIN_MENU';\n  paso = 0;\n  datos = {};\n  reply = menuPrincipal();\n}\n\n// Sesión nueva → Artículo 6 (bienvenida), sin importar qué haya escrito\nif (esSesionNueva) {\n  pantalla = 'MAIN_MENU';\n  paso = 0;\n  datos = {};\n  reply = bienvenida();\n  resultadoLog = 'BIENVENIDA';\n} else if (pantalla !== 'MAIN_MENU' && texto === '9') {\n  volverAMenuPrincipal();\n  resultadoLog = 'VOLVIO_MENU_PRINCIPAL';\n} else {\n  switch (pantalla) {\n\n    // =====================================================\n    case 'MAIN_MENU': {\n      switch (texto) {\n        case '0':\n          reply = menuAyuda();\n          break;\n        case '1':\n          pantalla = 'MENU_AGENDA';\n          reply = menuAgenda();\n          break;\n        case '2':\n          pantalla = 'MENU_TAREAS';\n          reply = menuTareas();\n          break;\n        case '3':\n          pantalla = 'MENU_RECORDATORIOS';\n          reply = menuRecordatorios();\n          break;\n        case '4':\n          pantalla = 'MENU_HABITOS';\n          reply = menuHabitos();\n          break;\n        case '5':\n          pantalla = 'MENU_LISTAS';\n          reply = menuListas();\n          break;\n        case '6':\n          pantalla = 'MENU_REPORTES';\n          reply = menuReportes(citasActivas, tareasActivas, habitosTodos, listasTodas);\n          break;\n        case '7':\n          pantalla = 'MENU_CONFIGURACION';\n          reply = menuConfiguracion();\n          break;\n        case '8':\n          if (esAdmin) {\n            pantalla = 'MENU_ADMIN';\n            reply = menuAdmin();\n          } else {\n            reply = 'Esa sección es solo para administradores. No tienes permiso para entrar ahí.\\n\\n' + menuPrincipal();\n            resultadoLog = 'ACCESO_DENEGADO';\n          }\n          break;\n        default:\n          reply = mensajeOpcionInvalida('MAIN_MENU');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_AGENDA': {\n      switch (texto) {\n        case '1':\n          pantalla = 'WIZARD_CITA';\n          paso = 1;\n          datos = {};\n          reply =\n            `Empecemos a crear tu cita.\\n\\n` +\n            `Paso 1 de 6\\n¿Cuál es la fecha de la cita?\\n\\n` +\n            `Formato: YYYY-MM-DD\\nEjemplo: 2025-12-20\\n\\n9. Cancelar`;\n          break;\n        case '2': {\n          if (citasActivas.length === 0) {\n            reply = 'Todavía no tienes citas agendadas.\\n\\n' + menuAgenda();\n          } else {\n            const lineas = citasActivas\n              .sort((a, b) => (a.json.fecha + a.json.hora).localeCompare(b.json.fecha + b.json.hora))\n              .map(c => `• [${c.json.id_cita}] ${c.json.fecha} ${c.json.hora} — ${c.json.nombre} (${c.json.motivo}, ${c.json.canal})`)\n              .join('\\n');\n            reply = `Aquí están tus próximas citas:\\n\\n${lineas}\\n\\n` + menuAgenda();\n          }\n          break;\n        }\n        case '3':\n          if (citasActivas.length === 0) {\n            reply = 'No tienes citas activas para reprogramar.\\n\\n' + menuAgenda();\n          } else {\n            pantalla = 'WIZARD_REPROGRAMAR_CITA';\n            paso = 1;\n            datos = {};\n            const lineas = citasActivas.map(c => `• [${c.json.id_cita}] ${c.json.fecha} ${c.json.hora} — ${c.json.nombre}`).join('\\n');\n            reply = `Vamos a reprogramar una cita.\\n\\nEscribe el ID de la cita:\\n\\n${lineas}\\n\\n9. Cancelar`;\n          }\n          break;\n        case '4':\n          if (citasActivas.length === 0) {\n            reply = 'No tienes citas activas para cancelar.\\n\\n' + menuAgenda();\n          } else {\n            pantalla = 'WIZARD_CANCELAR_CITA';\n            paso = 1;\n            datos = {};\n            const lineas = citasActivas.map(c => `• [${c.json.id_cita}] ${c.json.fecha} ${c.json.hora} — ${c.json.nombre}`).join('\\n');\n            reply = `Entiendo, vamos a cancelar una cita.\\n\\nEscribe el ID de la cita que quieres cancelar:\\n\\n${lineas}\\n\\n9. Volver`;\n          }\n          break;\n        case '5':\n          if (citasActivas.length === 0) {\n            reply = 'No tienes citas activas para marcar como completadas.\\n\\n' + menuAgenda();\n          } else {\n            pantalla = 'WIZARD_COMPLETAR_CITA';\n            paso = 1;\n            datos = {};\n            const lineas = citasActivas.map(c => `• [${c.json.id_cita}] ${c.json.fecha} ${c.json.hora} — ${c.json.nombre}`).join('\\n');\n            reply = `Vamos a marcarla como completada.\\n\\nEscribe el ID de la cita:\\n\\n${lineas}\\n\\n9. Volver`;\n          }\n          break;\n        default:\n          reply = mensajeOpcionInvalida('MENU_AGENDA');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'WIZARD_CITA': {\n      switch (paso) {\n        case 1: // Fecha\n          if (!validarFecha(texto)) {\n            reply =\n              `Esa fecha no es válida — recuerda que debe tener el formato YYYY-MM-DD ` +\n              `y no puede ser una fecha pasada.\\n\\nInténtalo de nuevo (ejemplo: 2025-12-20):\\n\\n9. Cancelar`;\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.fecha = texto;\n            paso = 2;\n            reply =\n              `Perfecto.\\n\\nPaso 2 de 6\\n¿A qué hora será la cita?\\n\\n` +\n              `Formato 24 horas (HH:MM)\\nEjemplo: 14:30\\n\\n9. Cancelar`;\n          }\n          break;\n\n        case 2: // Hora\n          if (!validarHora(texto)) {\n            reply = `Esa hora no es válida. Usa formato 24 horas (HH:MM), por ejemplo 14:30.\\n\\nInténtalo de nuevo:\\n\\n9. Cancelar`;\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.hora = texto;\n            paso = 3;\n            reply = `Muy bien.\\n\\nPaso 3 de 6\\n¿A nombre de quién es la cita?\\n\\nEscribe el nombre completo.\\n\\n9. Cancelar`;\n          }\n          break;\n\n        case 3: // Nombre\n          if (texto.length === 0) {\n            reply = `El nombre no puede quedar vacío. Escríbelo de nuevo:\\n\\n9. Cancelar`;\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.nombre = texto;\n            paso = 4;\n            reply = `Gracias.\\n\\nPaso 4 de 6\\nCuéntame brevemente el motivo de la cita.\\n\\nEjemplo: Asesoría técnica\\n\\n9. Cancelar`;\n          }\n          break;\n\n        case 4: // Motivo\n          if (texto.length === 0) {\n            reply = `El motivo no puede quedar vacío. Escríbelo de nuevo:\\n\\n9. Cancelar`;\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.motivo = texto;\n            paso = 5;\n            reply = `Ya casi terminamos.\\n\\nPaso 5 de 6\\n¿Cómo será la atención?\\n\\n1. Presencial\\n2. Virtual\\n3. Llamada\\n9. Cancelar`;\n          }\n          break;\n\n        case 5: { // Canal\n          const canales = { '1': 'Presencial', '2': 'Virtual', '3': 'Llamada' };\n          if (!canales[texto]) {\n            reply = `Elige una opción válida: 1 (Presencial), 2 (Virtual) o 3 (Llamada).\\n\\n9. Cancelar`;\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.canal = canales[texto];\n            paso = 6;\n            reply =\n              `Revisa la información de tu cita:\\n\\n` +\n              `Fecha: ${datos.fecha}\\n` +\n              `Hora: ${datos.hora}\\n` +\n              `Cliente: ${datos.nombre}\\n` +\n              `Motivo: ${datos.motivo}\\n` +\n              `Canal: ${datos.canal}\\n\\n` +\n              `¿Qué deseas hacer?\\n1. Confirmar y guardar\\n2. Editar información\\n3. Cancelar`;\n          }\n          break;\n        }\n\n        case 6: { // Confirmación\n          if (texto === '1') {\n            const solapada = citasActivas.some(c => c.json.fecha === datos.fecha && c.json.hora === datos.hora);\n            if (solapada) {\n              reply =\n                `Ya tienes otra cita agendada el ${datos.fecha} a las ${datos.hora}. Elijamos otro horario.\\n\\n` +\n                `Paso 1 de 6\\n¿Cuál es la fecha de la cita?\\n\\nFormato: YYYY-MM-DD\\n\\n9. Cancelar`;\n              paso = 1;\n              datos = {};\n              resultadoLog = 'SOLAPAMIENTO_DETECTADO';\n            } else {\n              const idCita = generarId('CITA', citasActivas, 'id_cita');\n              write.citas = {\n                do: true,\n                operation: 'append',\n                row: {\n                  id_cita: idCita,\n                  fecha: datos.fecha,\n                  hora: datos.hora,\n                  nombre: datos.nombre,\n                  motivo: datos.motivo,\n                  canal: datos.canal,\n                  estado: 'CONFIRMADA',\n                  creado_por: telegramUser,\n                  timestamp_creacion: nowISO(),\n                },\n              };\n              reply =\n                `¡Listo! Tu cita quedó agendada correctamente.\\n\\n` +\n                `ID de la cita: ${idCita}\\n\\n` +\n                `¿Qué deseas hacer ahora?\\n1. Volver a Agenda\\n2. Ir al menú principal`;\n              pantalla = 'POST_ACCION_AGENDA';\n              paso = 0;\n              datos = {};\n            }\n          } else if (texto === '2') {\n            paso = 1;\n            datos = {};\n            reply = `Sin problema, empecemos de nuevo.\\n\\nPaso 1 de 6\\n¿Cuál es la fecha de la cita?\\n\\nFormato: YYYY-MM-DD\\n\\n9. Cancelar`;\n          } else if (texto === '3') {\n            pantalla = 'MENU_AGENDA';\n            paso = 0;\n            datos = {};\n            reply = `De acuerdo, cancelé el proceso antes de guardar nada.\\n\\n` + menuAgenda();\n          } else {\n            reply = `Elige 1 (Confirmar), 2 (Editar) o 3 (Cancelar).`;\n            resultadoLog = 'VALIDACION_FALLIDA';\n          }\n          break;\n        }\n\n        default:\n          volverAMenuPrincipal();\n          resultadoLog = 'ESTADO_INCONSISTENTE';\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'POST_ACCION_AGENDA': {\n      if (texto === '1') {\n        pantalla = 'MENU_AGENDA';\n        reply = menuAgenda();\n      } else if (texto === '2') {\n        pantalla = 'MAIN_MENU';\n        reply = menuPrincipal();\n      } else {\n        reply = 'Elige 1 (Volver a Agenda) o 2 (Ir al menú principal).';\n        resultadoLog = 'VALIDACION_FALLIDA';\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'WIZARD_CANCELAR_CITA': {\n      const cita = citasActivas.find(c => c.json.id_cita === texto.toUpperCase());\n      if (!cita) {\n        reply = 'No encontré esa cita entre tus citas activas. Verifica el ID o escribe 9 para volver.';\n        resultadoLog = 'CITA_NO_ENCONTRADA';\n      } else {\n        write.citas = { do: true, operation: 'update', matchField: 'id_cita', row: { ...cita.json, estado: 'CANCELADA' } };\n        reply =\n          `Listo, cancelé tu cita [${cita.json.id_cita}].\\n\\n` +\n          `¿Qué deseas hacer ahora?\\n1. Volver a Agenda\\n2. Ir al menú principal`;\n        pantalla = 'POST_ACCION_AGENDA';\n        paso = 0;\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'WIZARD_COMPLETAR_CITA': {\n      const cita = citasActivas.find(c => c.json.id_cita === texto.toUpperCase());\n      if (!cita) {\n        reply = 'No encontré esa cita entre tus citas activas. Verifica el ID o escribe 9 para volver.';\n        resultadoLog = 'CITA_NO_ENCONTRADA';\n      } else {\n        write.citas = { do: true, operation: 'update', matchField: 'id_cita', row: { ...cita.json, estado: 'COMPLETADA' } };\n        reply =\n          `Perfecto, marqué la cita [${cita.json.id_cita}] como completada.\\n\\n` +\n          `¿Qué deseas hacer ahora?\\n1. Volver a Agenda\\n2. Ir al menú principal`;\n        pantalla = 'POST_ACCION_AGENDA';\n        paso = 0;\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'WIZARD_REPROGRAMAR_CITA': {\n      switch (paso) {\n        case 1: {\n          const cita = citasActivas.find(c => c.json.id_cita === texto.toUpperCase());\n          if (!cita) {\n            reply = 'No encontré esa cita. Verifica el ID o escribe 9 para cancelar.';\n            resultadoLog = 'CITA_NO_ENCONTRADA';\n          } else {\n            datos.id_cita = cita.json.id_cita;\n            paso = 2;\n            reply = `Muy bien.\\n\\n¿Cuál es la nueva fecha? (YYYY-MM-DD)\\n\\n9. Cancelar`;\n          }\n          break;\n        }\n        case 2:\n          if (!validarFecha(texto)) {\n            reply = 'Esa fecha no es válida. Usa YYYY-MM-DD y que no sea una fecha pasada.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.nueva_fecha = texto;\n            paso = 3;\n            reply = '¿Cuál es la nueva hora? (HH:MM, 24 horas)\\n\\n9. Cancelar';\n          }\n          break;\n        case 3:\n          if (!validarHora(texto)) {\n            reply = 'Esa hora no es válida. Usa formato 24 horas (HH:MM).\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.nueva_hora = texto;\n            paso = 4;\n            reply =\n              `Confirmemos el cambio:\\n\\nCita: ${datos.id_cita}\\n` +\n              `Nueva fecha: ${datos.nueva_fecha}\\nNueva hora: ${datos.nueva_hora}\\n\\n` +\n              `1. Confirmar cambio\\n2. Cancelar`;\n          }\n          break;\n        case 4: {\n          if (texto === '1') {\n            const solapada = citasActivas.some(\n              c => c.json.id_cita !== datos.id_cita && c.json.fecha === datos.nueva_fecha && c.json.hora === datos.nueva_hora\n            );\n            if (solapada) {\n              reply = `Ya hay otra cita en ese horario. Escribe otra fecha.\\n\\n¿Cuál es la nueva fecha? (YYYY-MM-DD)`;\n              paso = 2;\n              resultadoLog = 'SOLAPAMIENTO_DETECTADO';\n            } else {\n              const original = citasActivas.find(c => c.json.id_cita === datos.id_cita);\n              write.citas = {\n                do: true,\n                operation: 'update',\n                matchField: 'id_cita',\n                row: { ...original.json, fecha: datos.nueva_fecha, hora: datos.nueva_hora },\n              };\n              reply =\n                `Listo, tu cita [${datos.id_cita}] quedó reprogramada para el ${datos.nueva_fecha} a las ${datos.nueva_hora}.\\n\\n` +\n                `¿Qué deseas hacer ahora?\\n1. Volver a Agenda\\n2. Ir al menú principal`;\n              pantalla = 'POST_ACCION_AGENDA';\n              paso = 0;\n              datos = {};\n            }\n          } else if (texto === '2') {\n            pantalla = 'MENU_AGENDA';\n            paso = 0;\n            datos = {};\n            reply = 'De acuerdo, no cambié nada.\\n\\n' + menuAgenda();\n          } else {\n            reply = 'Elige 1 (Confirmar cambio) o 2 (Cancelar).';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          }\n          break;\n        }\n        default:\n          volverAMenuPrincipal();\n          resultadoLog = 'ESTADO_INCONSISTENTE';\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_TAREAS': {\n      switch (texto) {\n        case '1':\n          pantalla = 'WIZARD_TAREA';\n          paso = 1;\n          datos = {};\n          reply = 'Empecemos a crear tu tarea.\\n\\nPaso 1 de 3\\n¿Cuál es el título de la tarea?\\n\\n9. Cancelar';\n          break;\n        case '2': {\n          const pendientes = $('Get Tareas Activas').all().filter(t => String(t.json.estado).toUpperCase() !== 'COMPLETADA');\n          if (pendientes.length === 0) {\n            reply = 'No tienes tareas pendientes. 🎉\\n\\n' + menuTareas();\n          } else {\n            const lineas = pendientes\n              .sort((a, b) => String(a.json.prioridad).localeCompare(String(b.json.prioridad)))\n              .map(t => `• [${t.json.id_tarea}] ${t.json.titulo} — Prioridad: ${t.json.prioridad}${t.json.fecha_objetivo ? ` — Vence: ${t.json.fecha_objetivo}` : ''}`)\n              .join('\\n');\n            reply = `Estas son tus tareas pendientes:\\n\\n${lineas}\\n\\n` + menuTareas();\n          }\n          break;\n        }\n        case '3':\n          pantalla = 'WIZARD_COMPLETAR_TAREA';\n          paso = 1;\n          datos = {};\n          reply = 'Escribe el ID de la tarea que quieres marcar como completada:\\n\\n9. Cancelar';\n          break;\n        default:\n          reply = mensajeOpcionInvalida('MENU_TAREAS');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    case 'WIZARD_TAREA': {\n      switch (paso) {\n        case 1:\n          if (texto.length === 0) {\n            reply = 'El título no puede quedar vacío. Escríbelo de nuevo:\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.titulo = texto;\n            paso = 2;\n            reply = 'Paso 2 de 3\\n¿Qué prioridad tiene?\\n\\n1. Alta\\n2. Media\\n3. Baja\\n9. Cancelar';\n          }\n          break;\n        case 2: {\n          const prioridades = { '1': 'ALTA', '2': 'MEDIA', '3': 'BAJA' };\n          if (!prioridades[texto]) {\n            reply = 'Elige 1, 2 o 3.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.prioridad = prioridades[texto];\n            paso = 3;\n            reply = 'Paso 3 de 3\\n¿Tiene fecha objetivo? (YYYY-MM-DD) o escribe \"ninguna\"\\n\\n9. Cancelar';\n          }\n          break;\n        }\n        case 3: {\n          if (texto.toLowerCase() !== 'ninguna' && !validarFecha(texto)) {\n            reply = 'Esa fecha no es válida. Usa YYYY-MM-DD o escribe \"ninguna\".\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.fecha_objetivo = texto.toLowerCase() === 'ninguna' ? '' : texto;\n            const idTarea = `TAREA-${Date.now().toString().slice(-6)}`;\n            write.tareas = {\n              do: true, operation: 'append',\n              row: { id_tarea: idTarea, titulo: datos.titulo, prioridad: datos.prioridad, estado: 'PENDIENTE', fecha_objetivo: datos.fecha_objetivo, creado_por: telegramUser },\n            };\n            reply = `Listo, creé la tarea \"${datos.titulo}\" [${idTarea}].\\n\\n¿Qué deseas hacer ahora?\\n1. Volver a Tareas\\n2. Ir al menú principal`;\n            pantalla = 'POST_ACCION_TAREAS';\n            paso = 0;\n            datos = {};\n          }\n          break;\n        }\n        default:\n          volverAMenuPrincipal();\n          resultadoLog = 'ESTADO_INCONSISTENTE';\n      }\n      break;\n    }\n\n    case 'WIZARD_COMPLETAR_TAREA': {\n      if (texto.length === 0) {\n        reply = 'Escribe un ID de tarea válido.\\n\\n9. Cancelar';\n        resultadoLog = 'VALIDACION_FALLIDA';\n      } else {\n        write.tareas = { do: true, operation: 'update', matchField: 'id_tarea', row: { id_tarea: texto, estado: 'COMPLETADA' } };\n        reply = `Listo, marqué la tarea [${texto}] como completada (si existía).\\n\\n¿Qué deseas hacer ahora?\\n1. Volver a Tareas\\n2. Ir al menú principal`;\n        pantalla = 'POST_ACCION_TAREAS';\n        paso = 0;\n      }\n      break;\n    }\n\n    case 'POST_ACCION_TAREAS': {\n      if (texto === '1') { pantalla = 'MENU_TAREAS'; reply = menuTareas(); }\n      else if (texto === '2') { pantalla = 'MAIN_MENU'; reply = menuPrincipal(); }\n      else { reply = 'Elige 1 (Volver a Tareas) o 2 (Ir al menú principal).'; resultadoLog = 'VALIDACION_FALLIDA'; }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_RECORDATORIOS': {\n      switch (texto) {\n        case '1': {\n          const habitosConHora = $('Get Habitos').all().filter(h => String(h.json.hora_recordatorio || '').trim().length > 0);\n          if (habitosConHora.length === 0) {\n            reply = 'Todavía no tienes hábitos con una hora de recordatorio configurada.\\n\\n' + menuRecordatorios();\n          } else {\n            const lineas = habitosConHora\n              .map(h => `• [${h.json.id_habito}] ${h.json.nombre} — ${h.json.hora_recordatorio} (${h.json.frecuencia})`)\n              .join('\\n');\n            reply = `Estos son tus recordatorios (basados en tus hábitos):\\n\\n${lineas}\\n\\n` + menuRecordatorios();\n          }\n          break;\n        }\n        case '2':\n          pantalla = 'MENU_HABITOS';\n          reply = menuHabitos();\n          break;\n        default:\n          reply = mensajeOpcionInvalida('MENU_RECORDATORIOS');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_HABITOS': {\n      switch (texto) {\n        case '1':\n          pantalla = 'WIZARD_HABITO';\n          paso = 1;\n          datos = {};\n          reply = 'Empecemos a crear tu hábito.\\n\\nPaso 1 de 3\\n¿Cómo se llama el hábito?\\n\\n9. Cancelar';\n          break;\n        case '2': {\n          const habitos = $('Get Habitos').all().filter(h => String(h.json.estado || '').toUpperCase() !== 'INACTIVO');\n          if (habitos.length === 0) {\n            reply = 'Todavía no tienes hábitos registrados.\\n\\n' + menuHabitos();\n          } else {\n            const lineas = habitos\n              .map(h => `• [${h.json.id_habito}] ${h.json.nombre} — ${h.json.frecuencia}${h.json.hora_recordatorio ? ` (recordatorio: ${h.json.hora_recordatorio})` : ''} — Estado: ${h.json.estado}`)\n              .join('\\n');\n            reply = `Estos son tus hábitos:\\n\\n${lineas}\\n\\n` + menuHabitos();\n          }\n          break;\n        }\n        case '3':\n          pantalla = 'WIZARD_MARCAR_HABITO';\n          paso = 1;\n          datos = {};\n          reply = 'Escribe el ID del hábito que cumpliste hoy:\\n\\n9. Cancelar';\n          break;\n        default:\n          reply = mensajeOpcionInvalida('MENU_HABITOS');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    case 'WIZARD_HABITO': {\n      switch (paso) {\n        case 1:\n          if (texto.length === 0) {\n            reply = 'El nombre no puede quedar vacío.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.nombre = texto;\n            paso = 2;\n            reply = 'Paso 2 de 3\\n¿Con qué frecuencia?\\n\\n1. Diaria\\n2. Semanal\\n3. Mensual\\n9. Cancelar';\n          }\n          break;\n        case 2: {\n          const frecuencias = { '1': 'DIARIA', '2': 'SEMANAL', '3': 'MENSUAL' };\n          if (!frecuencias[texto]) {\n            reply = 'Elige 1, 2 o 3.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.frecuencia = frecuencias[texto];\n            paso = 3;\n            reply = 'Paso 3 de 3\\n¿Quieres hora de recordatorio? (HH:MM) o escribe \"ninguna\"\\n\\n9. Cancelar';\n          }\n          break;\n        }\n        case 3: {\n          if (texto.toLowerCase() !== 'ninguna' && !validarHora(texto)) {\n            reply = 'Esa hora no es válida. Usa HH:MM o escribe \"ninguna\".\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            const idHabito = `HABITO-${Date.now().toString().slice(-6)}`;\n            write.habitos = {\n              do: true, operation: 'append',\n              row: { id_habito: idHabito, nombre: datos.nombre, frecuencia: datos.frecuencia, hora_recordatorio: texto.toLowerCase() === 'ninguna' ? '' : texto, estado: 'ACTIVO' },\n            };\n            reply = `Listo, creé el hábito \"${datos.nombre}\" [${idHabito}].\\n\\n¿Qué deseas hacer ahora?\\n1. Volver a Hábitos\\n2. Ir al menú principal`;\n            pantalla = 'POST_ACCION_HABITOS';\n            paso = 0;\n            datos = {};\n          }\n          break;\n        }\n        default:\n          volverAMenuPrincipal();\n          resultadoLog = 'ESTADO_INCONSISTENTE';\n      }\n      break;\n    }\n\n    case 'WIZARD_MARCAR_HABITO': {\n      if (texto.length === 0) {\n        reply = 'Escribe un ID de hábito válido.\\n\\n9. Cancelar';\n        resultadoLog = 'VALIDACION_FALLIDA';\n      } else {\n        write.habitos = { do: true, operation: 'update', matchField: 'id_habito', row: { id_habito: texto, estado: `CUMPLIDO_${hoyISO()}` } };\n        reply = `Listo, marqué el hábito [${texto}] como cumplido hoy.\\n\\n¿Qué deseas hacer ahora?\\n1. Volver a Hábitos\\n2. Ir al menú principal`;\n        pantalla = 'POST_ACCION_HABITOS';\n        paso = 0;\n      }\n      break;\n    }\n\n    case 'POST_ACCION_HABITOS': {\n      if (texto === '1') { pantalla = 'MENU_HABITOS'; reply = menuHabitos(); }\n      else if (texto === '2') { pantalla = 'MAIN_MENU'; reply = menuPrincipal(); }\n      else { reply = 'Elige 1 (Volver a Hábitos) o 2 (Ir al menú principal).'; resultadoLog = 'VALIDACION_FALLIDA'; }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_LISTAS': {\n      switch (texto) {\n        case '1':\n          pantalla = 'WIZARD_LISTA';\n          paso = 1;\n          datos = {};\n          reply = 'Empecemos a crear tu lista.\\n\\nPaso 1 de 2\\n¿Cómo se llama la lista?\\n\\n9. Cancelar';\n          break;\n        case '2': {\n          const listas = $('Get Listas').all();\n          if (listas.length === 0) {\n            reply = 'Todavía no tienes listas creadas.\\n\\n' + menuListas();\n          } else {\n            const lineas = listas\n              .map(l => `• [${l.json.id_lista}] ${l.json.nombre_lista} (${l.json.tipo})`)\n              .join('\\n');\n            reply = `Estas son tus listas:\\n\\n${lineas}\\n\\n` + menuListas();\n          }\n          break;\n        }\n        case '3':\n          pantalla = 'WIZARD_ITEM';\n          paso = 1;\n          datos = {};\n          reply = '¿A qué ID de lista quieres agregar un item?\\n\\n9. Cancelar';\n          break;\n        case '4':\n          pantalla = 'WIZARD_MARCAR_ITEM';\n          paso = 1;\n          datos = {};\n          reply = 'Escribe el ID del item que completaste:\\n\\n9. Cancelar';\n          break;\n        default:\n          reply = mensajeOpcionInvalida('MENU_LISTAS');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    case 'WIZARD_LISTA': {\n      switch (paso) {\n        case 1:\n          if (texto.length === 0) {\n            reply = 'El nombre no puede quedar vacío.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.nombre_lista = texto;\n            paso = 2;\n            reply = 'Paso 2 de 2\\n¿Qué tipo de lista es?\\n\\n1. Compras\\n2. Pendientes\\n3. Otra\\n9. Cancelar';\n          }\n          break;\n        case 2: {\n          const tipos = { '1': 'COMPRAS', '2': 'PENDIENTES', '3': 'OTRA' };\n          if (!tipos[texto]) {\n            reply = 'Elige 1, 2 o 3.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            const idLista = `LISTA-${Date.now().toString().slice(-6)}`;\n            write.listas = { do: true, operation: 'append', row: { id_lista: idLista, nombre_lista: datos.nombre_lista, tipo: tipos[texto], creado_por: telegramUser } };\n            reply = `Listo, creé la lista \"${datos.nombre_lista}\" [${idLista}].\\n\\n¿Qué deseas hacer ahora?\\n1. Volver a Listas\\n2. Ir al menú principal`;\n            pantalla = 'POST_ACCION_LISTAS';\n            paso = 0;\n            datos = {};\n          }\n          break;\n        }\n        default:\n          volverAMenuPrincipal();\n          resultadoLog = 'ESTADO_INCONSISTENTE';\n      }\n      break;\n    }\n\n    case 'WIZARD_ITEM': {\n      switch (paso) {\n        case 1:\n          if (texto.length === 0) {\n            reply = 'Escribe un ID de lista válido.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.id_lista = texto;\n            paso = 2;\n            reply = '¿Qué item quieres agregar?\\n\\n9. Cancelar';\n          }\n          break;\n        case 2:\n          if (texto.length === 0) {\n            reply = 'El item no puede quedar vacío.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            const idItem = `ITEM-${Date.now().toString().slice(-6)}`;\n            write.items = { do: true, operation: 'append', row: { id_item: idItem, id_lista: datos.id_lista, item: texto, estado: 'PENDIENTE' } };\n            reply = `Listo, agregué \"${texto}\" a la lista [${datos.id_lista}].\\n\\n¿Qué deseas hacer ahora?\\n1. Volver a Listas\\n2. Ir al menú principal`;\n            pantalla = 'POST_ACCION_LISTAS';\n            paso = 0;\n            datos = {};\n          }\n          break;\n        default:\n          volverAMenuPrincipal();\n          resultadoLog = 'ESTADO_INCONSISTENTE';\n      }\n      break;\n    }\n\n    case 'WIZARD_MARCAR_ITEM': {\n      if (texto.length === 0) {\n        reply = 'Escribe un ID de item válido.\\n\\n9. Cancelar';\n        resultadoLog = 'VALIDACION_FALLIDA';\n      } else {\n        write.items = { do: true, operation: 'update', matchField: 'id_item', row: { id_item: texto, estado: 'COMPLETADO' } };\n        reply = `Listo, marqué el item [${texto}] como completado.\\n\\n¿Qué deseas hacer ahora?\\n1. Volver a Listas\\n2. Ir al menú principal`;\n        pantalla = 'POST_ACCION_LISTAS';\n        paso = 0;\n      }\n      break;\n    }\n\n    case 'POST_ACCION_LISTAS': {\n      if (texto === '1') { pantalla = 'MENU_LISTAS'; reply = menuListas(); }\n      else if (texto === '2') { pantalla = 'MAIN_MENU'; reply = menuPrincipal(); }\n      else { reply = 'Elige 1 (Volver a Listas) o 2 (Ir al menú principal).'; resultadoLog = 'VALIDACION_FALLIDA'; }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_REPORTES': {\n      switch (texto) {\n        case '1':\n          reply = menuReportes(citasActivas, tareasActivas, habitosTodos, listasTodas);\n          break;\n        case '2': {\n          const hoy = hoyISO();\n          const citasHoy = citasActivas.filter(c => c.json.fecha === hoy);\n          reply = citasHoy.length === 0\n            ? 'No tienes citas hoy.\\n\\n' + menuReportes(citasActivas, tareasActivas, habitosTodos, listasTodas)\n            : `Citas de hoy:\\n\\n${citasHoy.map(c => `• ${c.json.hora} — ${c.json.nombre}`).join('\\n')}\\n\\n` + menuReportes(citasActivas, tareasActivas, habitosTodos, listasTodas);\n          break;\n        }\n        default:\n          reply = mensajeOpcionInvalida('MENU_REPORTES');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_CONFIGURACION': {\n      switch (texto) {\n        case '1':\n          reply = `Estos son tus datos registrados:\\n\\nNombre: ${usuario.nombre}\\nRol: ${usuario.rol}\\n\\n` + menuConfiguracion();\n          break;\n        case '2':\n          reply = 'Esta opción todavía no está conectada a una escritura real (ver documentación).\\n\\n' + menuConfiguracion();\n          resultadoLog = 'MODULO_PENDIENTE';\n          break;\n        default:\n          reply = mensajeOpcionInvalida('MENU_CONFIGURACION');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_ADMIN': {\n      if (!esAdmin) {\n        reply = 'Acceso restringido.\\n\\n' + menuPrincipal();\n        pantalla = 'MAIN_MENU';\n        paso = 0;\n        resultadoLog = 'ACCESO_DENEGADO';\n        break;\n      }\n      switch (texto) {\n        case '1':\n          reply = 'Para ver los últimos logs todavía necesitamos agregar esa lectura al workflow (ver documentación).\\n\\n' + menuAdmin();\n          resultadoLog = 'PENDIENTE_LECTURA_LOGS';\n          break;\n        case '2':\n          reply = 'Para ver usuarios registrados todavía necesitamos agregar esa lectura al workflow (ver documentación).\\n\\n' + menuAdmin();\n          resultadoLog = 'PENDIENTE_LECTURA_USUARIOS';\n          break;\n        default:\n          reply = mensajeOpcionInvalida('MENU_ADMIN');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    // =====================================================\n    default:\n      volverAMenuPrincipal();\n      resultadoLog = 'PANTALLA_DESCONOCIDA';\n  }\n}\n\n// ---------- 4. SALIDA ----------\n\nconst sesionFinal = {\n  telegram_user: telegramUser,\n  pantalla_actual: pantalla,\n  paso_actual: paso,\n  datos_parciales: JSON.stringify(datos),\n  timestamp_ultima_interaccion: nowISO(),\n};\n\nreturn {\n  json: {\n    telegram_user: telegramUser,\n    chat_id: chatId,\n    reply_text: reply,\n    session: sesionFinal,\n    is_new_session: esSesionNueva,\n    write,\n    log: {\n      timestamp: nowISO(),\n      telegram_user: telegramUser,\n      pantalla: sesion.pantalla_actual || 'MAIN_MENU',\n      opcion_elegida: texto,\n      resultado: resultadoLog,\n    },\n  },\n};\n"
+        "jsCode": "/**\n * ============================================================\n *  AGENDABOT SERVICES — MOTOR DE MÁQUINA DE ESTADOS (\"BRAIN\")\n *  v2 — Comunicación Humanizada (Artículos 6 a 10)\n * ============================================================\n * Nodo: Code (JavaScript) — Modo: \"Run Once for Each Item\"\n *\n * ENTRADAS (pipeline lineal de n8n):\n *   $json                         -> salida de \"Normalizar Input\"\n *   $('Get Session').all()        -> SESSIONS para este telegram_user\n *   $('Get Usuario').all()        -> USUARIOS para este telegram_user\n *   $('Get Citas Activas').all()  -> CITAS con fecha >= hoy\n *\n * SALIDA: igual contrato que v1 (reply_text, session, write, log).\n *\n * REGLA DE COMUNICACIÓN HUMANIZADA (aplica a TODO mensaje del bot):\n *   1. Saludar / dar contexto cercano\n *   2. Explicar brevemente qué se puede hacer ahí\n *   3. Mostrar opciones numeradas\n *   4. Sugerir una opción\n *   5. Indicar cómo continuar o salir (9 = volver)\n * ============================================================\n */\n\n// ---------- 0. UTILIDADES ----------\n\nfunction hoyISO() {\n  return new Date().toISOString().slice(0, 10);\n}\nfunction nowISO() {\n  return new Date().toISOString();\n}\nfunction validarFecha(str) {\n  if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(str)) return false;\n  const d = new Date(str + 'T00:00:00');\n  if (isNaN(d.getTime())) return false;\n  const hoy = new Date(hoyISO() + 'T00:00:00');\n  return d.getTime() >= hoy.getTime();\n}\nfunction validarHora(str) {\n  return /^([01]\\d|2[0-3]):[0-5]\\d$/.test(str);\n}\nfunction generarId(prefijo, filasExistentes, campoId) {\n  let max = 0;\n  for (const fila of filasExistentes) {\n    const val = String(fila.json[campoId] || '');\n    const m = val.match(/-(\\d+)$/);\n    if (m) {\n      const n = parseInt(m[1], 10);\n      if (n > max) max = n;\n    }\n  }\n  return `${prefijo}-${String(max + 1).padStart(3, '0')}`;\n}\nfunction parseDatosParciales(str) {\n  try {\n    return str ? JSON.parse(str) : {};\n  } catch (e) {\n    return {};\n  }\n}\n\n// ---------- 1. MENÚ PRINCIPAL Y TEXTOS BASE (Artículos 6, 7, 8) ----------\n\nfunction textoMenuPrincipal() {\n  return (\n    `0. Ayuda\\n` +\n    `1. Agenda (citas)\\n` +\n    `2. Tareas\\n` +\n    `3. Recordatorios\\n` +\n    `4. Hábitos\\n` +\n    `5. Listas\\n` +\n    `6. Reportes\\n` +\n    `7. Configuración\\n` +\n    `8. Administrador`\n  );\n}\n\n// Artículo 6 — se muestra solo la primera vez (sesión nueva)\nfunction bienvenida() {\n  return (\n    `Hola, soy AgendaBot 👋\\n\\n` +\n    `Estoy aquí para ayudarte a organizar tus citas, tareas y recordatorios ` +\n    `de forma sencilla y sin complicaciones.\\n\\n` +\n    `Puedes escribirme en cualquier momento.\\n` +\n    `Para avanzar, solo tienes que escribir el número de la opción que quieras usar.\\n\\n` +\n    `Menú principal:\\n${textoMenuPrincipal()}\\n\\n` +\n    `Tip rápido: escribe solo el número (por ejemplo: 1) y presiona enviar.`\n  );\n}\n\n// Artículo 8 — se muestra cada vez que se vuelve al menú principal\nfunction menuPrincipal() {\n  return (\n    `¿En qué te puedo ayudar hoy?\\n\\n` +\n    `Menú principal:\\n${textoMenuPrincipal()}\\n\\n` +\n    `Si quieres empezar rápido, te recomiendo la opción 1 (Agenda).`\n  );\n}\n\n// Artículo 7 — mensaje global de opción inválida (dinámico)\nconst PANTALLAS_INFO = {\n  MAIN_MENU:          { label: 'Menú principal',       rango: '0 al 8' },\n  MENU_AGENDA:        { label: 'Menú de Agenda',        rango: '1 al 5, o 9 para volver' },\n  MENU_TAREAS:        { label: 'Menú de Tareas',        rango: '1 al 3, o 9 para volver' },\n  MENU_RECORDATORIOS: { label: 'Menú de Recordatorios', rango: '1 al 2, o 9 para volver' },\n  MENU_HABITOS:       { label: 'Menú de Hábitos',       rango: '1 al 3, o 9 para volver' },\n  MENU_LISTAS:        { label: 'Menú de Listas',        rango: '1 al 4, o 9 para volver' },\n  MENU_REPORTES:      { label: 'Menú de Reportes',      rango: '1 al 2, o 9 para volver' },\n  MENU_CONFIGURACION: { label: 'Configuración',         rango: '1 al 2, o 9 para volver' },\n  MENU_ADMIN:         { label: 'Administrador',         rango: '1 al 2, o 9 para volver' },\n};\n\nfunction mensajeOpcionInvalida(pantalla) {\n  const info = PANTALLAS_INFO[pantalla] || { label: pantalla, rango: 'revisa las opciones en pantalla' };\n  return (\n    `Ups, esa opción no existe en este menú.\\n\\n` +\n    `Por favor escribe uno de los números que ves en pantalla.\\n\\n` +\n    `Estás en: ${info.label}\\n` +\n    `Opciones disponibles: ${info.rango}`\n  );\n}\n\n// ---------- 2. MENÚS DE SEGUNDO NIVEL ----------\n\nfunction menuAgenda() {\n  return (\n    `Perfecto, vamos con tu agenda.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Agendar una nueva cita\\n` +\n    `2. Consultar tu agenda\\n` +\n    `3. Reprogramar una cita\\n` +\n    `4. Cancelar una cita\\n` +\n    `5. Marcar una cita como completada\\n` +\n    `9. Volver al menú principal`\n  );\n}\n\nfunction menuTareas() {\n  return (\n    `Vamos con tus tareas — aquí puedes crearlas, revisarlas o completarlas.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Crear una tarea\\n` +\n    `2. Consultar tareas pendientes\\n` +\n    `3. Marcar una tarea como completada\\n` +\n    `9. Volver al menú principal\\n\\n` +\n    `💡 Si es tu primera vez aquí, te recomiendo la opción 1.`\n  );\n}\n\nfunction menuRecordatorios() {\n  return (\n    `Vamos con tus recordatorios — para que no se te pase nada importante.\\n\\n` +\n    `Tus recordatorios se basan en los hábitos que tengan una hora configurada.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Ver mis recordatorios\\n` +\n    `2. Ir a Hábitos para crear o editar uno\\n` +\n    `9. Volver al menú principal`\n  );\n}\n\nfunction menuHabitos() {\n  return (\n    `Vamos con tus hábitos — para ayudarte a seguirles la pista.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Crear un hábito\\n` +\n    `2. Consultar mis hábitos\\n` +\n    `3. Marcar cumplido hoy\\n` +\n    `9. Volver al menú principal\\n\\n` +\n    `💡 Si es tu primer hábito, te recomiendo la opción 1.`\n  );\n}\n\nfunction menuListas() {\n  return (\n    `Vamos con tus listas — de compras, pendientes o lo que necesites.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Crear una lista\\n` +\n    `2. Consultar mis listas\\n` +\n    `3. Agregar un item a una lista\\n` +\n    `4. Marcar un item como completado\\n` +\n    `9. Volver al menú principal\\n\\n` +\n    `💡 Si es tu primera lista, te recomiendo la opción 1.`\n  );\n}\n\nfunction menuReportes(citasActivas, tareasActivas, habitos, listas) {\n  const confirmadas = citasActivas.filter(c => String(c.json.estado).toUpperCase() === 'CONFIRMADA').length;\n  const canceladas = citasActivas.filter(c => String(c.json.estado).toUpperCase() === 'CANCELADA').length;\n  const tareasPendientes = tareasActivas.filter(t => String(t.json.estado).toUpperCase() !== 'COMPLETADA').length;\n  const habitosActivos = habitos.filter(h => String(h.json.estado || '').toUpperCase() !== 'INACTIVO').length;\n  return (\n    `Aquí tienes un vistazo rápido a tu actividad.\\n\\n` +\n    `📊 Citas activas confirmadas: ${confirmadas}\\n` +\n    `📊 Citas canceladas (histórico visible): ${canceladas}\\n` +\n    `📊 Tareas pendientes: ${tareasPendientes}\\n` +\n    `📊 Hábitos activos: ${habitosActivos}\\n` +\n    `📊 Listas creadas: ${listas.length}\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Ver este resumen de nuevo\\n` +\n    `2. Ver citas de hoy\\n` +\n    `9. Volver al menú principal`\n  );\n}\n\nfunction menuConfiguracion() {\n  return (\n    `Aquí puedes ajustar tus preferencias.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Ver mis datos registrados\\n` +\n    `2. Cambiar mi nombre visible\\n` +\n    `9. Volver al menú principal`\n  );\n}\n\nfunction menuAdmin() {\n  return (\n    `Panel de administrador — solo visible para roles ADMIN.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Ver últimos logs\\n` +\n    `2. Ver usuarios registrados\\n` +\n    `9. Volver al menú principal`\n  );\n}\n\nfunction menuAyuda() {\n  return (\n    `Con gusto te oriento 🙂\\n\\n` +\n    `AgendaBot funciona con menús numerados: escribe el número de la opción ` +\n    `que quieras y presiona enviar.\\n\\n` +\n    `Desde cualquier submenú o asistente paso a paso, escribe 9 para volver ` +\n    `al menú anterior en cualquier momento.\\n\\n` +\n    `¿Qué deseas hacer?\\n\\n` +\n    `1. Ver el menú principal de nuevo\\n` +\n    `9. Volver al menú principal\\n\\n` +\n    `💡 Si tienes dudas sobre una opción específica, entra a ese menú: ` +\n    `siempre te va a explicar brevemente qué puedes hacer ahí.`\n  );\n}\n\n// ---------- 3. NODO PRINCIPAL DE EJECUCIÓN ----------\n\nconst input = $json;\nconst telegramUser = input.telegram_user;\nconst chatId = input.chat_id;\nconst texto = (input.input_text || '').trim();\nconst nombre = input.user_name || 'Usuario';\n\nconst sesionRows = $('Get Session').all().filter(r => String(r.json.telegram_user) === String(telegramUser));\nconst usuarioRows = $('Get Usuario').all().filter(r => String(r.json.telegram_user) === String(telegramUser));\nconst citasActivas = $('Get Citas Activas').all();\nconst tareasActivas = $('Get Tareas Activas').all();\nconst habitosTodos = $('Get Habitos').all();\nconst listasTodas = $('Get Listas').all();\n\nconst esUsuarioNuevo = usuarioRows.length === 0;\nconst usuario = esUsuarioNuevo\n  ? { telegram_user: telegramUser, nombre, rol: 'USER', permitido: 'TRUE' }\n  : usuarioRows[0].json;\n\nconst esAdmin = String(usuario.rol).toUpperCase() === 'ADMIN' &&\n                 String(usuario.permitido).toUpperCase() === 'TRUE';\n\nconst esSesionNueva = sesionRows.length === 0;\nlet sesion = esSesionNueva\n  ? { telegram_user: telegramUser, pantalla_actual: 'MAIN_MENU', paso_actual: 0, datos_parciales: '{}' }\n  : sesionRows[0].json;\n\nlet pantalla = sesion.pantalla_actual || 'MAIN_MENU';\nlet paso = Number(sesion.paso_actual || 0);\nlet datos = parseDatosParciales(sesion.datos_parciales);\n\nconst write = {\n  citas:  { do: false, row: null },\n  tareas: { do: false, row: null },\n  habitos:{ do: false, row: null },\n  listas: { do: false, row: null },\n  items:  { do: false, row: null },\n  usuarios_nuevo: { do: esUsuarioNuevo, row: esUsuarioNuevo ? usuario : null },\n  usuario_actualizar: { do: false, row: null },\n};\n\nlet reply = '';\nlet resultadoLog = 'OK';\n\nfunction volverAMenuPrincipal() {\n  pantalla = 'MAIN_MENU';\n  paso = 0;\n  datos = {};\n  reply = menuPrincipal();\n}\n\n// Sesión nueva → Artículo 6 (bienvenida), sin importar qué haya escrito\nif (esSesionNueva) {\n  pantalla = 'MAIN_MENU';\n  paso = 0;\n  datos = {};\n  reply = bienvenida();\n  resultadoLog = 'BIENVENIDA';\n} else if (pantalla !== 'MAIN_MENU' && texto === '9') {\n  volverAMenuPrincipal();\n  resultadoLog = 'VOLVIO_MENU_PRINCIPAL';\n} else {\n  switch (pantalla) {\n\n    // =====================================================\n    case 'MAIN_MENU': {\n      switch (texto) {\n        case '0':\n          reply = menuAyuda();\n          break;\n        case '1':\n          pantalla = 'MENU_AGENDA';\n          reply = menuAgenda();\n          break;\n        case '2':\n          pantalla = 'MENU_TAREAS';\n          reply = menuTareas();\n          break;\n        case '3':\n          pantalla = 'MENU_RECORDATORIOS';\n          reply = menuRecordatorios();\n          break;\n        case '4':\n          pantalla = 'MENU_HABITOS';\n          reply = menuHabitos();\n          break;\n        case '5':\n          pantalla = 'MENU_LISTAS';\n          reply = menuListas();\n          break;\n        case '6':\n          pantalla = 'MENU_REPORTES';\n          reply = menuReportes(citasActivas, tareasActivas, habitosTodos, listasTodas);\n          break;\n        case '7':\n          pantalla = 'MENU_CONFIGURACION';\n          reply = menuConfiguracion();\n          break;\n        case '8':\n          if (esAdmin) {\n            pantalla = 'MENU_ADMIN';\n            reply = menuAdmin();\n          } else {\n            reply = 'Esa sección es solo para administradores. No tienes permiso para entrar ahí.\\n\\n' + menuPrincipal();\n            resultadoLog = 'ACCESO_DENEGADO';\n          }\n          break;\n        default:\n          reply = mensajeOpcionInvalida('MAIN_MENU');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_AGENDA': {\n      switch (texto) {\n        case '1':\n          pantalla = 'WIZARD_CITA';\n          paso = 1;\n          datos = {};\n          reply =\n            `Empecemos a crear tu cita.\\n\\n` +\n            `Paso 1 de 6\\n¿Cuál es la fecha de la cita?\\n\\n` +\n            `Formato: YYYY-MM-DD\\nEjemplo: 2025-12-20\\n\\n9. Cancelar`;\n          break;\n        case '2': {\n          if (citasActivas.length === 0) {\n            reply = 'Todavía no tienes citas agendadas.\\n\\n' + menuAgenda();\n          } else {\n            const lineas = citasActivas\n              .sort((a, b) => (a.json.fecha + a.json.hora).localeCompare(b.json.fecha + b.json.hora))\n              .map(c => `• [${c.json.id_cita}] ${c.json.fecha} ${c.json.hora} — ${c.json.nombre} (${c.json.motivo}, ${c.json.canal})`)\n              .join('\\n');\n            reply = `Aquí están tus próximas citas:\\n\\n${lineas}\\n\\n` + menuAgenda();\n          }\n          break;\n        }\n        case '3':\n          if (citasActivas.length === 0) {\n            reply = 'No tienes citas activas para reprogramar.\\n\\n' + menuAgenda();\n          } else {\n            pantalla = 'WIZARD_REPROGRAMAR_CITA';\n            paso = 1;\n            datos = {};\n            const lineas = citasActivas.map(c => `• [${c.json.id_cita}] ${c.json.fecha} ${c.json.hora} — ${c.json.nombre}`).join('\\n');\n            reply = `Vamos a reprogramar una cita.\\n\\nEscribe el ID de la cita:\\n\\n${lineas}\\n\\n9. Cancelar`;\n          }\n          break;\n        case '4':\n          if (citasActivas.length === 0) {\n            reply = 'No tienes citas activas para cancelar.\\n\\n' + menuAgenda();\n          } else {\n            pantalla = 'WIZARD_CANCELAR_CITA';\n            paso = 1;\n            datos = {};\n            const lineas = citasActivas.map(c => `• [${c.json.id_cita}] ${c.json.fecha} ${c.json.hora} — ${c.json.nombre}`).join('\\n');\n            reply = `Entiendo, vamos a cancelar una cita.\\n\\nEscribe el ID de la cita que quieres cancelar:\\n\\n${lineas}\\n\\n9. Volver`;\n          }\n          break;\n        case '5':\n          if (citasActivas.length === 0) {\n            reply = 'No tienes citas activas para marcar como completadas.\\n\\n' + menuAgenda();\n          } else {\n            pantalla = 'WIZARD_COMPLETAR_CITA';\n            paso = 1;\n            datos = {};\n            const lineas = citasActivas.map(c => `• [${c.json.id_cita}] ${c.json.fecha} ${c.json.hora} — ${c.json.nombre}`).join('\\n');\n            reply = `Vamos a marcarla como completada.\\n\\nEscribe el ID de la cita:\\n\\n${lineas}\\n\\n9. Volver`;\n          }\n          break;\n        default:\n          reply = mensajeOpcionInvalida('MENU_AGENDA');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'WIZARD_CITA': {\n      switch (paso) {\n        case 1: // Fecha\n          if (!validarFecha(texto)) {\n            reply =\n              `Esa fecha no es válida — recuerda que debe tener el formato YYYY-MM-DD ` +\n              `y no puede ser una fecha pasada.\\n\\nInténtalo de nuevo (ejemplo: 2025-12-20):\\n\\n9. Cancelar`;\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.fecha = texto;\n            paso = 2;\n            reply =\n              `Perfecto.\\n\\nPaso 2 de 6\\n¿A qué hora será la cita?\\n\\n` +\n              `Formato 24 horas (HH:MM)\\nEjemplo: 14:30\\n\\n9. Cancelar`;\n          }\n          break;\n\n        case 2: // Hora\n          if (!validarHora(texto)) {\n            reply = `Esa hora no es válida. Usa formato 24 horas (HH:MM), por ejemplo 14:30.\\n\\nInténtalo de nuevo:\\n\\n9. Cancelar`;\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.hora = texto;\n            paso = 3;\n            reply = `Muy bien.\\n\\nPaso 3 de 6\\n¿A nombre de quién es la cita?\\n\\nEscribe el nombre completo.\\n\\n9. Cancelar`;\n          }\n          break;\n\n        case 3: // Nombre\n          if (texto.length === 0) {\n            reply = `El nombre no puede quedar vacío. Escríbelo de nuevo:\\n\\n9. Cancelar`;\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.nombre = texto;\n            paso = 4;\n            reply = `Gracias.\\n\\nPaso 4 de 6\\nCuéntame brevemente el motivo de la cita.\\n\\nEjemplo: Asesoría técnica\\n\\n9. Cancelar`;\n          }\n          break;\n\n        case 4: // Motivo\n          if (texto.length === 0) {\n            reply = `El motivo no puede quedar vacío. Escríbelo de nuevo:\\n\\n9. Cancelar`;\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.motivo = texto;\n            paso = 5;\n            reply = `Ya casi terminamos.\\n\\nPaso 5 de 6\\n¿Cómo será la atención?\\n\\n1. Presencial\\n2. Virtual\\n3. Llamada\\n9. Cancelar`;\n          }\n          break;\n\n        case 5: { // Canal\n          const canales = { '1': 'Presencial', '2': 'Virtual', '3': 'Llamada' };\n          if (!canales[texto]) {\n            reply = `Elige una opción válida: 1 (Presencial), 2 (Virtual) o 3 (Llamada).\\n\\n9. Cancelar`;\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.canal = canales[texto];\n            paso = 6;\n            reply =\n              `Revisa la información de tu cita:\\n\\n` +\n              `Fecha: ${datos.fecha}\\n` +\n              `Hora: ${datos.hora}\\n` +\n              `Cliente: ${datos.nombre}\\n` +\n              `Motivo: ${datos.motivo}\\n` +\n              `Canal: ${datos.canal}\\n\\n` +\n              `¿Qué deseas hacer?\\n1. Confirmar y guardar\\n2. Editar información\\n3. Cancelar`;\n          }\n          break;\n        }\n\n        case 6: { // Confirmación\n          if (texto === '1') {\n            const solapada = citasActivas.some(c => c.json.fecha === datos.fecha && c.json.hora === datos.hora);\n            if (solapada) {\n              reply =\n                `Ya tienes otra cita agendada el ${datos.fecha} a las ${datos.hora}. Elijamos otro horario.\\n\\n` +\n                `Paso 1 de 6\\n¿Cuál es la fecha de la cita?\\n\\nFormato: YYYY-MM-DD\\n\\n9. Cancelar`;\n              paso = 1;\n              datos = {};\n              resultadoLog = 'SOLAPAMIENTO_DETECTADO';\n            } else {\n              const idCita = generarId('CITA', citasActivas, 'id_cita');\n              write.citas = {\n                do: true,\n                operation: 'append',\n                row: {\n                  id_cita: idCita,\n                  fecha: datos.fecha,\n                  hora: datos.hora,\n                  nombre: datos.nombre,\n                  motivo: datos.motivo,\n                  canal: datos.canal,\n                  estado: 'CONFIRMADA',\n                  creado_por: telegramUser,\n                  timestamp_creacion: nowISO(),\n                },\n              };\n              reply =\n                `¡Listo! Tu cita quedó agendada correctamente.\\n\\n` +\n                `ID de la cita: ${idCita}\\n\\n` +\n                `¿Qué deseas hacer ahora?\\n1. Volver a Agenda\\n2. Ir al menú principal`;\n              pantalla = 'POST_ACCION_AGENDA';\n              paso = 0;\n              datos = {};\n            }\n          } else if (texto === '2') {\n            paso = 1;\n            datos = {};\n            reply = `Sin problema, empecemos de nuevo.\\n\\nPaso 1 de 6\\n¿Cuál es la fecha de la cita?\\n\\nFormato: YYYY-MM-DD\\n\\n9. Cancelar`;\n          } else if (texto === '3') {\n            pantalla = 'MENU_AGENDA';\n            paso = 0;\n            datos = {};\n            reply = `De acuerdo, cancelé el proceso antes de guardar nada.\\n\\n` + menuAgenda();\n          } else {\n            reply = `Elige 1 (Confirmar), 2 (Editar) o 3 (Cancelar).`;\n            resultadoLog = 'VALIDACION_FALLIDA';\n          }\n          break;\n        }\n\n        default:\n          volverAMenuPrincipal();\n          resultadoLog = 'ESTADO_INCONSISTENTE';\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'POST_ACCION_AGENDA': {\n      if (texto === '1') {\n        pantalla = 'MENU_AGENDA';\n        reply = menuAgenda();\n      } else if (texto === '2') {\n        pantalla = 'MAIN_MENU';\n        reply = menuPrincipal();\n      } else {\n        reply = 'Elige 1 (Volver a Agenda) o 2 (Ir al menú principal).';\n        resultadoLog = 'VALIDACION_FALLIDA';\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'WIZARD_CANCELAR_CITA': {\n      const cita = citasActivas.find(c => c.json.id_cita === texto.toUpperCase());\n      if (!cita) {\n        reply = 'No encontré esa cita entre tus citas activas. Verifica el ID o escribe 9 para volver.';\n        resultadoLog = 'CITA_NO_ENCONTRADA';\n      } else {\n        write.citas = { do: true, operation: 'update', matchField: 'id_cita', row: { ...cita.json, estado: 'CANCELADA' } };\n        reply =\n          `Listo, cancelé tu cita [${cita.json.id_cita}].\\n\\n` +\n          `¿Qué deseas hacer ahora?\\n1. Volver a Agenda\\n2. Ir al menú principal`;\n        pantalla = 'POST_ACCION_AGENDA';\n        paso = 0;\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'WIZARD_COMPLETAR_CITA': {\n      const cita = citasActivas.find(c => c.json.id_cita === texto.toUpperCase());\n      if (!cita) {\n        reply = 'No encontré esa cita entre tus citas activas. Verifica el ID o escribe 9 para volver.';\n        resultadoLog = 'CITA_NO_ENCONTRADA';\n      } else {\n        write.citas = { do: true, operation: 'update', matchField: 'id_cita', row: { ...cita.json, estado: 'COMPLETADA' } };\n        reply =\n          `Perfecto, marqué la cita [${cita.json.id_cita}] como completada.\\n\\n` +\n          `¿Qué deseas hacer ahora?\\n1. Volver a Agenda\\n2. Ir al menú principal`;\n        pantalla = 'POST_ACCION_AGENDA';\n        paso = 0;\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'WIZARD_REPROGRAMAR_CITA': {\n      switch (paso) {\n        case 1: {\n          const cita = citasActivas.find(c => c.json.id_cita === texto.toUpperCase());\n          if (!cita) {\n            reply = 'No encontré esa cita. Verifica el ID o escribe 9 para cancelar.';\n            resultadoLog = 'CITA_NO_ENCONTRADA';\n          } else {\n            datos.id_cita = cita.json.id_cita;\n            paso = 2;\n            reply = `Muy bien.\\n\\n¿Cuál es la nueva fecha? (YYYY-MM-DD)\\n\\n9. Cancelar`;\n          }\n          break;\n        }\n        case 2:\n          if (!validarFecha(texto)) {\n            reply = 'Esa fecha no es válida. Usa YYYY-MM-DD y que no sea una fecha pasada.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.nueva_fecha = texto;\n            paso = 3;\n            reply = '¿Cuál es la nueva hora? (HH:MM, 24 horas)\\n\\n9. Cancelar';\n          }\n          break;\n        case 3:\n          if (!validarHora(texto)) {\n            reply = 'Esa hora no es válida. Usa formato 24 horas (HH:MM).\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.nueva_hora = texto;\n            paso = 4;\n            reply =\n              `Confirmemos el cambio:\\n\\nCita: ${datos.id_cita}\\n` +\n              `Nueva fecha: ${datos.nueva_fecha}\\nNueva hora: ${datos.nueva_hora}\\n\\n` +\n              `1. Confirmar cambio\\n2. Cancelar`;\n          }\n          break;\n        case 4: {\n          if (texto === '1') {\n            const solapada = citasActivas.some(\n              c => c.json.id_cita !== datos.id_cita && c.json.fecha === datos.nueva_fecha && c.json.hora === datos.nueva_hora\n            );\n            if (solapada) {\n              reply = `Ya hay otra cita en ese horario. Escribe otra fecha.\\n\\n¿Cuál es la nueva fecha? (YYYY-MM-DD)`;\n              paso = 2;\n              resultadoLog = 'SOLAPAMIENTO_DETECTADO';\n            } else {\n              const original = citasActivas.find(c => c.json.id_cita === datos.id_cita);\n              write.citas = {\n                do: true,\n                operation: 'update',\n                matchField: 'id_cita',\n                row: { ...original.json, fecha: datos.nueva_fecha, hora: datos.nueva_hora },\n              };\n              reply =\n                `Listo, tu cita [${datos.id_cita}] quedó reprogramada para el ${datos.nueva_fecha} a las ${datos.nueva_hora}.\\n\\n` +\n                `¿Qué deseas hacer ahora?\\n1. Volver a Agenda\\n2. Ir al menú principal`;\n              pantalla = 'POST_ACCION_AGENDA';\n              paso = 0;\n              datos = {};\n            }\n          } else if (texto === '2') {\n            pantalla = 'MENU_AGENDA';\n            paso = 0;\n            datos = {};\n            reply = 'De acuerdo, no cambié nada.\\n\\n' + menuAgenda();\n          } else {\n            reply = 'Elige 1 (Confirmar cambio) o 2 (Cancelar).';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          }\n          break;\n        }\n        default:\n          volverAMenuPrincipal();\n          resultadoLog = 'ESTADO_INCONSISTENTE';\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_TAREAS': {\n      switch (texto) {\n        case '1':\n          pantalla = 'WIZARD_TAREA';\n          paso = 1;\n          datos = {};\n          reply = 'Empecemos a crear tu tarea.\\n\\nPaso 1 de 3\\n¿Cuál es el título de la tarea?\\n\\n9. Cancelar';\n          break;\n        case '2': {\n          const pendientes = $('Get Tareas Activas').all().filter(t => String(t.json.estado).toUpperCase() !== 'COMPLETADA');\n          if (pendientes.length === 0) {\n            reply = 'No tienes tareas pendientes. 🎉\\n\\n' + menuTareas();\n          } else {\n            const lineas = pendientes\n              .sort((a, b) => String(a.json.prioridad).localeCompare(String(b.json.prioridad)))\n              .map(t => `• [${t.json.id_tarea}] ${t.json.titulo} — Prioridad: ${t.json.prioridad}${t.json.fecha_objetivo ? ` — Vence: ${t.json.fecha_objetivo}` : ''}`)\n              .join('\\n');\n            reply = `Estas son tus tareas pendientes:\\n\\n${lineas}\\n\\n` + menuTareas();\n          }\n          break;\n        }\n        case '3':\n          pantalla = 'WIZARD_COMPLETAR_TAREA';\n          paso = 1;\n          datos = {};\n          reply = 'Escribe el ID de la tarea que quieres marcar como completada:\\n\\n9. Cancelar';\n          break;\n        default:\n          reply = mensajeOpcionInvalida('MENU_TAREAS');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    case 'WIZARD_TAREA': {\n      switch (paso) {\n        case 1:\n          if (texto.length === 0) {\n            reply = 'El título no puede quedar vacío. Escríbelo de nuevo:\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.titulo = texto;\n            paso = 2;\n            reply = 'Paso 2 de 3\\n¿Qué prioridad tiene?\\n\\n1. Alta\\n2. Media\\n3. Baja\\n9. Cancelar';\n          }\n          break;\n        case 2: {\n          const prioridades = { '1': 'ALTA', '2': 'MEDIA', '3': 'BAJA' };\n          if (!prioridades[texto]) {\n            reply = 'Elige 1, 2 o 3.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.prioridad = prioridades[texto];\n            paso = 3;\n            reply = 'Paso 3 de 3\\n¿Tiene fecha objetivo? (YYYY-MM-DD) o escribe \"ninguna\"\\n\\n9. Cancelar';\n          }\n          break;\n        }\n        case 3: {\n          if (texto.toLowerCase() !== 'ninguna' && !validarFecha(texto)) {\n            reply = 'Esa fecha no es válida. Usa YYYY-MM-DD o escribe \"ninguna\".\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.fecha_objetivo = texto.toLowerCase() === 'ninguna' ? '' : texto;\n            const idTarea = `TAREA-${Date.now().toString().slice(-6)}`;\n            write.tareas = {\n              do: true, operation: 'append',\n              row: { id_tarea: idTarea, titulo: datos.titulo, prioridad: datos.prioridad, estado: 'PENDIENTE', fecha_objetivo: datos.fecha_objetivo, creado_por: telegramUser },\n            };\n            reply = `Listo, creé la tarea \"${datos.titulo}\" [${idTarea}].\\n\\n¿Qué deseas hacer ahora?\\n1. Volver a Tareas\\n2. Ir al menú principal`;\n            pantalla = 'POST_ACCION_TAREAS';\n            paso = 0;\n            datos = {};\n          }\n          break;\n        }\n        default:\n          volverAMenuPrincipal();\n          resultadoLog = 'ESTADO_INCONSISTENTE';\n      }\n      break;\n    }\n\n    case 'WIZARD_COMPLETAR_TAREA': {\n      if (texto.length === 0) {\n        reply = 'Escribe un ID de tarea válido.\\n\\n9. Cancelar';\n        resultadoLog = 'VALIDACION_FALLIDA';\n      } else {\n        write.tareas = { do: true, operation: 'update', matchField: 'id_tarea', row: { id_tarea: texto, estado: 'COMPLETADA' } };\n        reply = `Listo, marqué la tarea [${texto}] como completada (si existía).\\n\\n¿Qué deseas hacer ahora?\\n1. Volver a Tareas\\n2. Ir al menú principal`;\n        pantalla = 'POST_ACCION_TAREAS';\n        paso = 0;\n      }\n      break;\n    }\n\n    case 'POST_ACCION_TAREAS': {\n      if (texto === '1') { pantalla = 'MENU_TAREAS'; reply = menuTareas(); }\n      else if (texto === '2') { pantalla = 'MAIN_MENU'; reply = menuPrincipal(); }\n      else { reply = 'Elige 1 (Volver a Tareas) o 2 (Ir al menú principal).'; resultadoLog = 'VALIDACION_FALLIDA'; }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_RECORDATORIOS': {\n      switch (texto) {\n        case '1': {\n          const habitosConHora = $('Get Habitos').all().filter(h => String(h.json.hora_recordatorio || '').trim().length > 0);\n          if (habitosConHora.length === 0) {\n            reply = 'Todavía no tienes hábitos con una hora de recordatorio configurada.\\n\\n' + menuRecordatorios();\n          } else {\n            const lineas = habitosConHora\n              .map(h => `• [${h.json.id_habito}] ${h.json.nombre} — ${h.json.hora_recordatorio} (${h.json.frecuencia})`)\n              .join('\\n');\n            reply = `Estos son tus recordatorios (basados en tus hábitos):\\n\\n${lineas}\\n\\n` + menuRecordatorios();\n          }\n          break;\n        }\n        case '2':\n          pantalla = 'MENU_HABITOS';\n          reply = menuHabitos();\n          break;\n        default:\n          reply = mensajeOpcionInvalida('MENU_RECORDATORIOS');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_HABITOS': {\n      switch (texto) {\n        case '1':\n          pantalla = 'WIZARD_HABITO';\n          paso = 1;\n          datos = {};\n          reply = 'Empecemos a crear tu hábito.\\n\\nPaso 1 de 3\\n¿Cómo se llama el hábito?\\n\\n9. Cancelar';\n          break;\n        case '2': {\n          const habitos = $('Get Habitos').all().filter(h => String(h.json.estado || '').toUpperCase() !== 'INACTIVO');\n          if (habitos.length === 0) {\n            reply = 'Todavía no tienes hábitos registrados.\\n\\n' + menuHabitos();\n          } else {\n            const lineas = habitos\n              .map(h => `• [${h.json.id_habito}] ${h.json.nombre} — ${h.json.frecuencia}${h.json.hora_recordatorio ? ` (recordatorio: ${h.json.hora_recordatorio})` : ''} — Estado: ${h.json.estado}`)\n              .join('\\n');\n            reply = `Estos son tus hábitos:\\n\\n${lineas}\\n\\n` + menuHabitos();\n          }\n          break;\n        }\n        case '3':\n          pantalla = 'WIZARD_MARCAR_HABITO';\n          paso = 1;\n          datos = {};\n          reply = 'Escribe el ID del hábito que cumpliste hoy:\\n\\n9. Cancelar';\n          break;\n        default:\n          reply = mensajeOpcionInvalida('MENU_HABITOS');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    case 'WIZARD_HABITO': {\n      switch (paso) {\n        case 1:\n          if (texto.length === 0) {\n            reply = 'El nombre no puede quedar vacío.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.nombre = texto;\n            paso = 2;\n            reply = 'Paso 2 de 3\\n¿Con qué frecuencia?\\n\\n1. Diaria\\n2. Semanal\\n3. Mensual\\n9. Cancelar';\n          }\n          break;\n        case 2: {\n          const frecuencias = { '1': 'DIARIA', '2': 'SEMANAL', '3': 'MENSUAL' };\n          if (!frecuencias[texto]) {\n            reply = 'Elige 1, 2 o 3.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.frecuencia = frecuencias[texto];\n            paso = 3;\n            reply = 'Paso 3 de 3\\n¿Quieres hora de recordatorio? (HH:MM) o escribe \"ninguna\"\\n\\n9. Cancelar';\n          }\n          break;\n        }\n        case 3: {\n          if (texto.toLowerCase() !== 'ninguna' && !validarHora(texto)) {\n            reply = 'Esa hora no es válida. Usa HH:MM o escribe \"ninguna\".\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            const idHabito = `HABITO-${Date.now().toString().slice(-6)}`;\n            write.habitos = {\n              do: true, operation: 'append',\n              row: { id_habito: idHabito, nombre: datos.nombre, frecuencia: datos.frecuencia, hora_recordatorio: texto.toLowerCase() === 'ninguna' ? '' : texto, estado: 'ACTIVO' },\n            };\n            reply = `Listo, creé el hábito \"${datos.nombre}\" [${idHabito}].\\n\\n¿Qué deseas hacer ahora?\\n1. Volver a Hábitos\\n2. Ir al menú principal`;\n            pantalla = 'POST_ACCION_HABITOS';\n            paso = 0;\n            datos = {};\n          }\n          break;\n        }\n        default:\n          volverAMenuPrincipal();\n          resultadoLog = 'ESTADO_INCONSISTENTE';\n      }\n      break;\n    }\n\n    case 'WIZARD_MARCAR_HABITO': {\n      if (texto.length === 0) {\n        reply = 'Escribe un ID de hábito válido.\\n\\n9. Cancelar';\n        resultadoLog = 'VALIDACION_FALLIDA';\n      } else {\n        write.habitos = { do: true, operation: 'update', matchField: 'id_habito', row: { id_habito: texto, estado: `CUMPLIDO_${hoyISO()}` } };\n        reply = `Listo, marqué el hábito [${texto}] como cumplido hoy.\\n\\n¿Qué deseas hacer ahora?\\n1. Volver a Hábitos\\n2. Ir al menú principal`;\n        pantalla = 'POST_ACCION_HABITOS';\n        paso = 0;\n      }\n      break;\n    }\n\n    case 'POST_ACCION_HABITOS': {\n      if (texto === '1') { pantalla = 'MENU_HABITOS'; reply = menuHabitos(); }\n      else if (texto === '2') { pantalla = 'MAIN_MENU'; reply = menuPrincipal(); }\n      else { reply = 'Elige 1 (Volver a Hábitos) o 2 (Ir al menú principal).'; resultadoLog = 'VALIDACION_FALLIDA'; }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_LISTAS': {\n      switch (texto) {\n        case '1':\n          pantalla = 'WIZARD_LISTA';\n          paso = 1;\n          datos = {};\n          reply = 'Empecemos a crear tu lista.\\n\\nPaso 1 de 2\\n¿Cómo se llama la lista?\\n\\n9. Cancelar';\n          break;\n        case '2': {\n          const listas = $('Get Listas').all();\n          if (listas.length === 0) {\n            reply = 'Todavía no tienes listas creadas.\\n\\n' + menuListas();\n          } else {\n            const lineas = listas\n              .map(l => `• [${l.json.id_lista}] ${l.json.nombre_lista} (${l.json.tipo})`)\n              .join('\\n');\n            reply = `Estas son tus listas:\\n\\n${lineas}\\n\\n` + menuListas();\n          }\n          break;\n        }\n        case '3':\n          pantalla = 'WIZARD_ITEM';\n          paso = 1;\n          datos = {};\n          reply = '¿A qué ID de lista quieres agregar un item?\\n\\n9. Cancelar';\n          break;\n        case '4':\n          pantalla = 'WIZARD_MARCAR_ITEM';\n          paso = 1;\n          datos = {};\n          reply = 'Escribe el ID del item que completaste:\\n\\n9. Cancelar';\n          break;\n        default:\n          reply = mensajeOpcionInvalida('MENU_LISTAS');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    case 'WIZARD_LISTA': {\n      switch (paso) {\n        case 1:\n          if (texto.length === 0) {\n            reply = 'El nombre no puede quedar vacío.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.nombre_lista = texto;\n            paso = 2;\n            reply = 'Paso 2 de 2\\n¿Qué tipo de lista es?\\n\\n1. Compras\\n2. Pendientes\\n3. Otra\\n9. Cancelar';\n          }\n          break;\n        case 2: {\n          const tipos = { '1': 'COMPRAS', '2': 'PENDIENTES', '3': 'OTRA' };\n          if (!tipos[texto]) {\n            reply = 'Elige 1, 2 o 3.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            const idLista = `LISTA-${Date.now().toString().slice(-6)}`;\n            write.listas = { do: true, operation: 'append', row: { id_lista: idLista, nombre_lista: datos.nombre_lista, tipo: tipos[texto], creado_por: telegramUser } };\n            reply = `Listo, creé la lista \"${datos.nombre_lista}\" [${idLista}].\\n\\n¿Qué deseas hacer ahora?\\n1. Volver a Listas\\n2. Ir al menú principal`;\n            pantalla = 'POST_ACCION_LISTAS';\n            paso = 0;\n            datos = {};\n          }\n          break;\n        }\n        default:\n          volverAMenuPrincipal();\n          resultadoLog = 'ESTADO_INCONSISTENTE';\n      }\n      break;\n    }\n\n    case 'WIZARD_ITEM': {\n      switch (paso) {\n        case 1:\n          if (texto.length === 0) {\n            reply = 'Escribe un ID de lista válido.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            datos.id_lista = texto;\n            paso = 2;\n            reply = '¿Qué item quieres agregar?\\n\\n9. Cancelar';\n          }\n          break;\n        case 2:\n          if (texto.length === 0) {\n            reply = 'El item no puede quedar vacío.\\n\\n9. Cancelar';\n            resultadoLog = 'VALIDACION_FALLIDA';\n          } else {\n            const idItem = `ITEM-${Date.now().toString().slice(-6)}`;\n            write.items = { do: true, operation: 'append', row: { id_item: idItem, id_lista: datos.id_lista, item: texto, estado: 'PENDIENTE' } };\n            reply = `Listo, agregué \"${texto}\" a la lista [${datos.id_lista}].\\n\\n¿Qué deseas hacer ahora?\\n1. Volver a Listas\\n2. Ir al menú principal`;\n            pantalla = 'POST_ACCION_LISTAS';\n            paso = 0;\n            datos = {};\n          }\n          break;\n        default:\n          volverAMenuPrincipal();\n          resultadoLog = 'ESTADO_INCONSISTENTE';\n      }\n      break;\n    }\n\n    case 'WIZARD_MARCAR_ITEM': {\n      if (texto.length === 0) {\n        reply = 'Escribe un ID de item válido.\\n\\n9. Cancelar';\n        resultadoLog = 'VALIDACION_FALLIDA';\n      } else {\n        write.items = { do: true, operation: 'update', matchField: 'id_item', row: { id_item: texto, estado: 'COMPLETADO' } };\n        reply = `Listo, marqué el item [${texto}] como completado.\\n\\n¿Qué deseas hacer ahora?\\n1. Volver a Listas\\n2. Ir al menú principal`;\n        pantalla = 'POST_ACCION_LISTAS';\n        paso = 0;\n      }\n      break;\n    }\n\n    case 'POST_ACCION_LISTAS': {\n      if (texto === '1') { pantalla = 'MENU_LISTAS'; reply = menuListas(); }\n      else if (texto === '2') { pantalla = 'MAIN_MENU'; reply = menuPrincipal(); }\n      else { reply = 'Elige 1 (Volver a Listas) o 2 (Ir al menú principal).'; resultadoLog = 'VALIDACION_FALLIDA'; }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_REPORTES': {\n      switch (texto) {\n        case '1':\n          reply = menuReportes(citasActivas, tareasActivas, habitosTodos, listasTodas);\n          break;\n        case '2': {\n          const hoy = hoyISO();\n          const citasHoy = citasActivas.filter(c => c.json.fecha === hoy);\n          reply = citasHoy.length === 0\n            ? 'No tienes citas hoy.\\n\\n' + menuReportes(citasActivas, tareasActivas, habitosTodos, listasTodas)\n            : `Citas de hoy:\\n\\n${citasHoy.map(c => `• ${c.json.hora} — ${c.json.nombre}`).join('\\n')}\\n\\n` + menuReportes(citasActivas, tareasActivas, habitosTodos, listasTodas);\n          break;\n        }\n        default:\n          reply = mensajeOpcionInvalida('MENU_REPORTES');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_CONFIGURACION': {\n      switch (texto) {\n        case '1':\n          reply =\n            `Estos son tus datos registrados:\\n\\n` +\n            `Nombre: ${usuario.nombre}\\n` +\n            `ID de Telegram: ${usuario.telegram_user}\\n` +\n            `Rol: ${usuario.rol}\\n` +\n            `Permitido: ${usuario.permitido}\\n\\n` +\n            menuConfiguracion();\n          break;\n        case '2':\n          pantalla = 'WIZARD_CAMBIAR_NOMBRE';\n          paso = 1;\n          datos = {};\n          reply = `Tu nombre actual es \"${usuario.nombre}\".\\n\\n¿Cuál quieres que sea tu nuevo nombre visible?\\n\\n9. Cancelar`;\n          break;\n        default:\n          reply = mensajeOpcionInvalida('MENU_CONFIGURACION');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    case 'WIZARD_CAMBIAR_NOMBRE': {\n      if (texto.length === 0) {\n        reply = 'El nombre no puede quedar vacío. Escríbelo de nuevo:\\n\\n9. Cancelar';\n        resultadoLog = 'VALIDACION_FALLIDA';\n      } else {\n        write.usuario_actualizar = { do: true, row: { telegram_user: telegramUser, nombre: texto } };\n        reply = `Listo, tu nombre visible ahora es \"${texto}\".\\n\\n¿Qué deseas hacer ahora?\\n1. Volver a Configuración\\n2. Ir al menú principal`;\n        pantalla = 'POST_ACCION_CONFIGURACION';\n        paso = 0;\n        datos = {};\n      }\n      break;\n    }\n\n    case 'POST_ACCION_CONFIGURACION': {\n      if (texto === '1') { pantalla = 'MENU_CONFIGURACION'; reply = menuConfiguracion(); }\n      else if (texto === '2') { pantalla = 'MAIN_MENU'; reply = menuPrincipal(); }\n      else { reply = 'Elige 1 (Volver a Configuración) o 2 (Ir al menú principal).'; resultadoLog = 'VALIDACION_FALLIDA'; }\n      break;\n    }\n\n    // =====================================================\n    case 'MENU_ADMIN': {\n      if (!esAdmin) {\n        reply = 'Acceso restringido.\\n\\n' + menuPrincipal();\n        pantalla = 'MAIN_MENU';\n        paso = 0;\n        resultadoLog = 'ACCESO_DENEGADO';\n        break;\n      }\n      switch (texto) {\n        case '1': {\n          const logs = $('Get Logs').all()\n            .filter(l => l.json.timestamp)\n            .sort((a, b) => String(b.json.timestamp).localeCompare(String(a.json.timestamp)))\n            .slice(0, 10);\n          if (logs.length === 0) {\n            reply = 'Todavía no hay registros en el log.\\n\\n' + menuAdmin();\n          } else {\n            const lineas = logs\n              .map(l => `• ${l.json.timestamp} — [${l.json.telegram_user}] ${l.json.pantalla} → \"${l.json.opcion_elegida}\" (${l.json.resultado})`)\n              .join('\\n');\n            reply = `Últimos ${logs.length} registros:\\n\\n${lineas}\\n\\n` + menuAdmin();\n          }\n          break;\n        }\n        case '2': {\n          const usuarios = $('Get Todos Usuarios').all();\n          if (usuarios.length === 0) {\n            reply = 'No hay usuarios registrados.\\n\\n' + menuAdmin();\n          } else {\n            const lineas = usuarios\n              .map(u => `• ${u.json.nombre} [${u.json.telegram_user}] — Rol: ${u.json.rol} — Permitido: ${u.json.permitido}`)\n              .join('\\n');\n            reply = `Usuarios registrados (${usuarios.length}):\\n\\n${lineas}\\n\\n` + menuAdmin();\n          }\n          break;\n        }\n        default:\n          reply = mensajeOpcionInvalida('MENU_ADMIN');\n          resultadoLog = 'OPCION_INVALIDA';\n      }\n      break;\n    }\n\n    // =====================================================\n    default:\n      volverAMenuPrincipal();\n      resultadoLog = 'PANTALLA_DESCONOCIDA';\n  }\n}\n\n// ---------- 4. SALIDA ----------\n\nconst sesionFinal = {\n  telegram_user: telegramUser,\n  pantalla_actual: pantalla,\n  paso_actual: paso,\n  datos_parciales: JSON.stringify(datos),\n  timestamp_ultima_interaccion: nowISO(),\n};\n\nreturn {\n  json: {\n    telegram_user: telegramUser,\n    chat_id: chatId,\n    reply_text: reply,\n    session: sesionFinal,\n    is_new_session: esSesionNueva,\n    write,\n    log: {\n      timestamp: nowISO(),\n      telegram_user: telegramUser,\n      pantalla: sesion.pantalla_actual || 'MAIN_MENU',\n      opcion_elegida: texto,\n      resultado: resultadoLog,\n    },\n  },\n};\n"
       },
-      "id": "bceb312c-dff1-45a9-90b3-245a8e276389",
+      "id": "f37933fe-8187-48ec-b19d-acf237d03999",
       "name": "AgendaBot Brain",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -896,
-        2080
+        96,
+        2176
       ]
     },
     {
@@ -340,13 +400,13 @@
         },
         "options": {}
       },
-      "id": "81ea8401-fd5a-42cf-993f-b503fdaf6327",
+      "id": "ef24e793-844e-4877-9f93-fda7aed10720",
       "name": "Guardar Sesion",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        -592,
-        1760
+        496,
+        1664
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -379,13 +439,13 @@
         },
         "options": {}
       },
-      "id": "77e993ce-c855-47ca-8a79-23b44e21b9c4",
+      "id": "4d54794f-b580-4bdc-8b58-92267140f770",
       "name": "IF Escribir Citas",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -592,
-        1920
+        512,
+        2048
       ]
     },
     {
@@ -505,13 +565,128 @@
         },
         "options": {}
       },
-      "id": "ea583b06-2261-4128-bf45-b4af2c6b2118",
+      "id": "25eee8c6-13db-427d-b506-0c6c2b87eaa1",
       "name": "Escribir Citas",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        -368,
+        992,
+        2016
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "q55ovL8OQQ9SYCyF",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.write.usuario_actualizar.do }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "0a94d14c-7f0b-4c86-932d-64ad752b31d8",
+      "name": "IF Escribir Usuarios",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        512,
         1856
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1ZBBzCiGk-GMBf9eKGtDiDrYhdqvqk6HcrN6Vd9nU1ts",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "USUARIOS",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telegram_user": "={{ $json.write.usuario_actualizar.row.telegram_user }}",
+            "nombre": "={{ $json.write.usuario_actualizar.row.nombre }}"
+          },
+          "matchingColumns": [
+            "telegram_user"
+          ],
+          "schema": [
+            {
+              "id": "telegram_user",
+              "displayName": "telegram_user",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "rol",
+              "displayName": "rol",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "permitido",
+              "displayName": "permitido",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "273ad6af-ee9f-47e8-9435-db109de53703",
+      "name": "Escribir Usuarios",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        816,
+        1840
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -544,13 +719,13 @@
         },
         "options": {}
       },
-      "id": "45fe1b7f-454a-48b4-a7d5-71cca043a748",
+      "id": "321081e6-d4a9-4f37-81aa-ad18aeb8ff23",
       "name": "IF Escribir Tareas",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -592,
-        2080
+        512,
+        2208
       ]
     },
     {
@@ -640,13 +815,13 @@
         },
         "options": {}
       },
-      "id": "80709e79-0993-4bf2-9d94-3571edacb278",
+      "id": "1ab69c99-032d-4c2c-8459-1f9395ac53e6",
       "name": "Escribir Tareas",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        -368,
-        2016
+        736,
+        2144
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -679,13 +854,13 @@
         },
         "options": {}
       },
-      "id": "3d61cbab-bf61-452a-a988-f1cda89d2fe9",
+      "id": "668a6d3b-df7b-4cfc-88ea-d70d1a945183",
       "name": "IF Escribir Habitos",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -592,
-        2240
+        512,
+        2368
       ]
     },
     {
@@ -765,13 +940,13 @@
         },
         "options": {}
       },
-      "id": "7fc5c1fb-36b4-4fbd-82dc-1bec6f9c358d",
+      "id": "7757dd81-e8aa-4802-9fd7-81e665ec7229",
       "name": "Escribir Habitos",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        -368,
-        2176
+        736,
+        2304
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -804,13 +979,13 @@
         },
         "options": {}
       },
-      "id": "ee498ff4-ff3b-4bd8-b962-9712ee62ef05",
+      "id": "c8e4f1f3-511d-474b-8193-63e6e753b5dc",
       "name": "IF Escribir Listas",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -592,
-        2400
+        512,
+        2528
       ]
     },
     {
@@ -880,13 +1055,13 @@
         },
         "options": {}
       },
-      "id": "5f29b26c-374d-4ce2-8ab8-f86f5cf8b671",
+      "id": "7eaae20c-581f-4b77-9c72-6bd9d702d70e",
       "name": "Escribir Listas",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        -368,
-        2336
+        736,
+        2464
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -919,13 +1094,13 @@
         },
         "options": {}
       },
-      "id": "1bf1ad59-80b9-4f38-87ea-2c2d5dbad4b9",
+      "id": "2bca67ee-853e-47c4-ba68-98f0e9e6ac49",
       "name": "IF Escribir Items_Lista",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -592,
-        2560
+        512,
+        2688
       ]
     },
     {
@@ -995,13 +1170,13 @@
         },
         "options": {}
       },
-      "id": "7a30bdd3-0357-4c82-a13b-28eecfe7d248",
+      "id": "7048d3a9-0762-4140-af5c-3804853cae97",
       "name": "Escribir Items_Lista",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        -368,
-        2496
+        736,
+        2624
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1034,13 +1209,13 @@
         },
         "options": {}
       },
-      "id": "51e781a3-a364-429a-8c40-d0a8a16ccc00",
+      "id": "6258eef6-2e4f-40ae-ae66-52321c7e11a7",
       "name": "IF Usuario Nuevo",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        -592,
-        2720
+        512,
+        2848
       ]
     },
     {
@@ -1110,13 +1285,13 @@
         },
         "options": {}
       },
-      "id": "829dc2a7-87e4-4ea7-8cc9-f0530457c154",
+      "id": "0f6b9f58-cbeb-435a-b492-1a974b561713",
       "name": "Registrar Usuario Nuevo",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        -368,
-        2656
+        768,
+        2800
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1200,13 +1375,13 @@
         },
         "options": {}
       },
-      "id": "6f87b3eb-b1a3-49b0-9a9f-dc82baa200ba",
+      "id": "4e561905-fe0b-47de-a70d-905bbc7a792d",
       "name": "Registrar Log",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
       "position": [
-        -592,
-        2880
+        512,
+        3024
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -1223,15 +1398,15 @@
           "parse_mode": "Markdown"
         }
       },
-      "id": "d2fbff55-916b-4e68-a62d-f42e9c360923",
+      "id": "8d2f4975-829f-4c55-a284-c77f282630b1",
       "name": "Enviar Respuesta",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        -592,
-        3040
+        512,
+        3264
       ],
-      "webhookId": "0edbfefe-3e54-404d-9f4b-ff2c45b0ceca",
+      "webhookId": "fb216e1a-242b-433f-9591-07a33ad1a818",
       "credentials": {
         "telegramApi": {
           "id": "59AcNn2eg6YLQ9Xk",
@@ -1323,6 +1498,28 @@
       "main": [
         [
           {
+            "node": "Get Logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Logs": {
+      "main": [
+        [
+          {
+            "node": "Get Todos Usuarios",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Todos Usuarios": {
+      "main": [
+        [
+          {
             "node": "Preparar Contexto",
             "type": "main",
             "index": 0
@@ -1371,6 +1568,11 @@
           },
           {
             "node": "IF Escribir Items_Lista",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "IF Escribir Usuarios",
             "type": "main",
             "index": 0
           },
@@ -1457,6 +1659,17 @@
           }
         ]
       ]
+    },
+    "IF Escribir Usuarios": {
+      "main": [
+        [
+          {
+            "node": "Escribir Usuarios",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -1465,7 +1678,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "4d517648-6e4f-4977-80d9-feea039ca12e",
+  "versionId": "2fce52bc-39d7-4e42-97e8-a9e5c5e96880",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "cf8f2bd435bb1d4e2eee8626819a3bd33cea52774cd2d01256ad7cd690dc5477"
