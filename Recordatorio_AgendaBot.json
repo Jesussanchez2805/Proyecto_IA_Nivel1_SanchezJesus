@@ -12,13 +12,13 @@
           ]
         }
       },
-      "id": "d2c43b1b-6579-4d28-9fa9-15b1e009b74c",
+      "id": "ace13408-7866-4ff6-981b-d3aff406201f",
       "name": "Cada dia 8:00 AM",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -224,
-        112
+        -64,
+        192
       ]
     },
     {
@@ -43,13 +43,14 @@
         },
         "options": {}
       },
-      "id": "4a1d326d-5ff2-4f85-927e-a3342dca1796",
+      "id": "ff81a9ec-f600-4b6d-8b57-f7854ad02188",
       "name": "Get Citas Hoy",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
+      "alwaysOutputData": true,
       "position": [
-        0,
-        0
+        160,
+        80
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -80,13 +81,14 @@
         },
         "options": {}
       },
-      "id": "6d3b0925-ec8b-4dc1-a1df-f020e8a04930",
+      "id": "f7c1ffa7-6367-46d1-b6d6-bb3df09db4b7",
       "name": "Get Tareas Hoy",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
+      "alwaysOutputData": true,
       "position": [
-        224,
-        0
+        384,
+        80
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -107,23 +109,16 @@
           "value": "USUARIOS",
           "mode": "name"
         },
-        "filtersUI": {
-          "values": [
-            {
-              "lookupColumn": "permitido",
-              "lookupValue": "TRUE"
-            }
-          ]
-        },
         "options": {}
       },
-      "id": "c2ac93a4-5ff7-4cea-ba1b-68a3f7b421a2",
+      "id": "4d397c3b-363a-4495-a63a-b948195a3313",
       "name": "Get Usuarios Activos",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.5,
+      "alwaysOutputData": true,
       "position": [
-        448,
-        0
+        608,
+        80
       ],
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -134,15 +129,15 @@
     },
     {
       "parameters": {
-        "jsCode": "/**\n * AGENDABOT — RESUMEN DIARIO (FASE 7)\n * Nodo: Code — Modo: \"Run Once for All Items\"\n * Se ejecuta después de dos nodos Google Sheets:\n *   \"Get Citas Hoy\"  (CITAS filtrado por fecha = hoy)\n *   \"Get Tareas Hoy\" (TAREAS filtrado por fecha_objetivo = hoy)\n * y antes de \"Get Usuarios Activos\" (USUARIOS filtrado por permitido = TRUE),\n * que se usa para saber a quién enviarle el resumen.\n *\n * Salida: un item POR CADA usuario a notificar, con chat_id y el texto armado,\n * listo para conectarse directo a un nodo Telegram \"Send Message\" con\n * Chat ID = {{$json.chat_id}}.\n */\n\nfunction hoyISO() {\n  return new Date().toISOString().slice(0, 10);\n}\n\nconst citasHoy = $('Get Citas Hoy').all();\nconst tareasHoy = $('Get Tareas Hoy').all();\nconst usuarios = $('Get Usuarios Activos').all();\n\nlet cuerpo = `☀️ *Resumen del día — ${hoyISO()}*\\n\\n`;\n\nif (citasHoy.length === 0) {\n  cuerpo += '📅 No tienes citas hoy.\\n\\n';\n} else {\n  cuerpo += '📅 *Citas de hoy:*\\n';\n  cuerpo += citasHoy\n    .sort((a, b) => String(a.json.hora).localeCompare(String(b.json.hora)))\n    .map(c => `• ${c.json.hora} — ${c.json.nombre} (${c.json.motivo})`)\n    .join('\\n');\n  cuerpo += '\\n\\n';\n}\n\nif (tareasHoy.length === 0) {\n  cuerpo += '✅ No tienes tareas con fecha objetivo hoy.';\n} else {\n  cuerpo += '✅ *Tareas con vencimiento hoy:*\\n';\n  cuerpo += tareasHoy\n    .filter(t => String(t.json.estado).toUpperCase() !== 'COMPLETADA')\n    .map(t => `• [${t.json.prioridad}] ${t.json.titulo}`)\n    .join('\\n');\n}\n\n// Un item por usuario activo, para que el nodo Telegram \"Send Message\" itere\n// automáticamente y le envíe el resumen a cada uno.\nreturn usuarios.map(u => ({\n  json: {\n    chat_id: u.json.telegram_user,\n    resumen_texto: cuerpo,\n  },\n}));\n"
+        "jsCode": "/**\n * AGENDABOT — RESUMEN DIARIO (FASE 7)\n * Nodo: Code — Modo: \"Run Once for All Items\"\n * Se ejecuta después de dos nodos Google Sheets:\n *   \"Get Citas Hoy\"  (CITAS filtrado por fecha = hoy)\n *   \"Get Tareas Hoy\" (TAREAS filtrado por fecha_objetivo = hoy)\n * y antes de \"Get Usuarios Activos\" (USUARIOS filtrado por permitido = TRUE),\n * que se usa para saber a quién enviarle el resumen.\n *\n * Salida: un item POR CADA usuario a notificar, con chat_id y el texto armado,\n * listo para conectarse directo a un nodo Telegram \"Send Message\" con\n * Chat ID = {{$json.chat_id}}.\n *\n * NOTA (fix): si \"Get Usuarios Activos\" no encuentra ningún usuario activo\n * (0 filas), este nodo simplemente no genera items y \"Enviar Resumen\" no se\n * ejecuta — esto es esperado (no hay a quién enviarle nada), no un error.\n * Si el problema es que SIEMPRE da 0 usuarios cuando debería haber al menos\n * uno, revisa el valor real de la columna \"permitido\" en USUARIOS (ver\n * retroalimentación).\n */\n\nfunction hoyISO() {\n  return new Date().toISOString().slice(0, 10);\n}\n\nconst citasHoy = $('Get Citas Hoy').all();\nconst tareasHoy = $('Get Tareas Hoy').all();\nconst usuarios = $('Get Usuarios Activos').all();\n\nlet cuerpo = `☀️ *Resumen del día — ${hoyISO()}*\\n\\n`;\n\nif (citasHoy.length === 0) {\n  cuerpo += '📅 No tienes citas hoy.\\n\\n';\n} else {\n  cuerpo += '📅 *Citas de hoy:*\\n';\n  cuerpo += citasHoy\n    .sort((a, b) => String(a.json.hora).localeCompare(String(b.json.hora)))\n    .map(c => `• ${c.json.hora} — ${c.json.nombre} (${c.json.motivo})`)\n    .join('\\n');\n  cuerpo += '\\n\\n';\n}\n\nif (tareasHoy.length === 0) {\n  cuerpo += '✅ No tienes tareas con fecha objetivo hoy.';\n} else {\n  cuerpo += '✅ *Tareas con vencimiento hoy:*\\n';\n  cuerpo += tareasHoy\n    .filter(t => String(t.json.estado).toUpperCase() !== 'COMPLETADA')\n    .map(t => `• [${t.json.prioridad}] ${t.json.titulo}`)\n    .join('\\n');\n}\n\n// Filtramos aquí (en código) en vez de en el nodo Google Sheets, porque el\n// filtro de Sheets compara texto exacto y falla si \"permitido\" es un\n// checkbox (booleano true/false) en vez de texto \"TRUE\". Aceptamos ambos\n// formatos, y de paso descartamos cualquier fila sin telegram_user (incluye\n// el item vacío \"fantasma\" que Google Sheets puede emitir cuando\n// alwaysOutputData está activo y no hay filas), evitando el error de\n// Telegram \"chat_id is empty\".\nfunction esPermitido(valor) {\n  if (valor === true) return true;\n  return String(valor).trim().toUpperCase() === 'TRUE';\n}\n\nconst usuariosActivos = usuarios.filter(\n  u => u.json && esPermitido(u.json.permitido) && u.json.telegram_user\n);\n\n// Un item por usuario activo, para que el nodo Telegram \"Send Message\" itere\n// automáticamente y le envíe el resumen a cada uno.\nreturn usuariosActivos.map(u => ({\n  json: {\n    chat_id: u.json.telegram_user,\n    resumen_texto: cuerpo,\n  },\n}));\n"
       },
-      "id": "1fa487d6-03b5-498b-bf29-c93ca09d3208",
+      "id": "b8b8ce1c-d987-4c1e-a450-c9c33c50f9af",
       "name": "Construir Resumen",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        672,
-        0
+        832,
+        80
       ]
     },
     {
@@ -153,13 +148,13 @@
           "parse_mode": "Markdown"
         }
       },
-      "id": "03b2dc03-dfeb-44b3-afaa-96a329ff328c",
+      "id": "6c594e3d-8ffa-415c-a8c6-12008ff96db8",
       "name": "Enviar Resumen",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        880,
-        0
+        1040,
+        80
       ],
       "webhookId": "7b79942f-822b-471f-8272-362eb57544ea",
       "credentials": {
@@ -234,7 +229,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "288844c6-c501-4555-a786-0b4509201909",
+  "versionId": "9d86b76b-426f-471f-bfb7-910bf74d7595",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "cf8f2bd435bb1d4e2eee8626819a3bd33cea52774cd2d01256ad7cd690dc5477"
